@@ -3,4 +3,7 @@
     height="800px"
     width="1300px"
     [center]="center"
-    ></google-map>
+    (mapDblclick)="addMarker($event)">
+    <map-marker *ngFor="let marker of markers"
+        [position]="marker.position"></map-marker>
+</google-map>

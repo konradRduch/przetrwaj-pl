@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { GoogleMap, MapMarker } from '@angular/google-maps';
+import { GoogleMap } from '@angular/google-maps';
 
 @Component({
   selector: 'app-mapka',
@@ -7,9 +7,18 @@ import { GoogleMap, MapMarker } from '@angular/google-maps';
   styleUrls: ['./mapka.component.css']
 })
 export class MapkaComponent {
-  center: google.maps.LatLngLiteral = { lat: 50.2889384, lng: 18.6777903 };
+  center: google.maps.LatLngLiteral = { lat: 50.28854410989689, lng: 18.678064408570513 }; // default location - AEI Gliwice
+  markers: { position: { lat: number, lng: number } }[] = [];
+  @ViewChild('map', { static: true }) map!: GoogleMap;
 
-  
+  addMarker(event: google.maps.MapMouseEvent) {
+    this.markers.push({
+      position: {
+        lat: event.latLng!.lat(),
+        lng: event.latLng!.lng(),
+      }
+    })
+  }
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition(position => {
