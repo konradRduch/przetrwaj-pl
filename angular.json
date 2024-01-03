@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "przetrwaj-pl:build:production"
+              "buildTarget": "przetrwaj-pl:build:production"
             },
             "development": {
-              "browserTarget": "przetrwaj-pl:build:development"
+              "buildTarget": "przetrwaj-pl:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "przetrwaj-pl:build"
+            "buildTarget": "przetrwaj-pl:build"
           }
         },
         "test": {

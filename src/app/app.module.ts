@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoadingSpinnerComponent } from './loading-spiner/loading-spinner.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MapkaComponent } from './mapka/mapka.component';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MapkaComponent } from './mapka/mapka.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
