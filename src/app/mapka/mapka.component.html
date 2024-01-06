@@ -1,9 +1,10 @@
-<p>mapka works!</p>
 <google-map
     height="800px"
     width="1300px"
     [center]="center"
     (mapDblclick)="addMarker($event)">
     <map-marker *ngFor="let marker of markers"
-        [position]="marker.position"></map-marker>
+        [position]="marker.position"
+        [title]="marker.title"
+        [options]="marker.options"></map-marker>
 </google-map>
