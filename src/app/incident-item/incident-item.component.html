@@ -1,0 +1,23 @@
+<div *ngIf="incident !== undefined && incident !== null">
+    <h4><b>{{incident.title}}</b></h4>
+    <b>Description</b> <br>
+    {{incident.description}} <br>
+    <b>address</b> {{incident.address}} <br>
+    <b>danger level:</b> {{incident.dangerLevel}} <br> <br>
+    <b>created at</b> {{incident.creationDate | date: 'medium'}} <br>
+    <b>expires at</b> {{incident.expirationDate| date: 'medium'}} <br> <br>
+    <div
+        *ngIf="incident.recommendedResources !== undefined && incident.recommendedResources !== null && incident.recommendedResources.length!=0">
+        <b>recommended resources:</b>
+        <ul>
+            <li *ngFor="let resource of incident.recommendedResources">
+                {{resource.name}} <br>
+            </li>
+        </ul>
+    </div>
+    <div *ngElse>
+        <p>no recommended resources</p>
+    </div>
+    <button class="btnConfirm">Confirm</button>
+    <button class="btnReject" style="margin-left: 1em">Reject</button>
+</div>

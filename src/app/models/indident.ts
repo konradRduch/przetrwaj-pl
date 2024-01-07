@@ -1,15 +1,17 @@
 import { ResourceType } from './resourceType';
 
-export interface Incident {
-    title: string;
-    description: string;
-    address: string;
-    location: {
-        latitude: number;
-        longitude: number;
-    };
-    creationDate: Date;
-    expirationDate: Date;
-    dangerLevel: number;
-    recommendedResources?: ResourceType[];
+export class Incident {
+    constructor(
+        public title: string,
+        public description: string,
+        public address: string,
+        public location: {
+            latitude: number,
+            longitude: number
+        },
+        public creationDate: Date,
+        public expirationDate: Date,
+        public dangerLevel: number,
+        public recommendedResources?: ResourceType[]
+    ) { }
 }

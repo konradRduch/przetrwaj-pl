@@ -10,6 +10,8 @@ import { LoadingSpinnerComponent } from './loading-spiner/loading-spinner.compon
 import { HttpClientModule } from '@angular/common/http';
 import { MapkaComponent } from './mapka/mapka.component';
 import { GoogleMapsModule } from '@angular/google-maps'
+import { IncidentsListComponent } from './incidents-list/incidents-list.component';
+import { IncidentItemComponent } from './incident-item/incident-item.component';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    IncidentsListComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

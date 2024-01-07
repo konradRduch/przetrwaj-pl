@@ -1,0 +1,9 @@
+<h3>Indicents List</h3>
+<div *ngIf="(incidents.length!=0)">
+    <div *ngFor="let incident of incidents">
+        <app-incident-item [incident]="incident"></app-incident-item>
+        <hr>
+    </div>
+</div>
+<div *ngElse>
+    <p>no incidents</p>
