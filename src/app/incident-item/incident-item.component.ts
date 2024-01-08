@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Incident } from '../models/indident';
+import { Incident } from '../models/incident';
 import { CommonModule } from '@angular/common';
 
 @Component({
