@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 
 interface Marker {
@@ -20,6 +20,8 @@ interface Marker {
 export class MapkaComponent {
   center: google.maps.LatLngLiteral = { lat: 50.28854410989689, lng: 18.678064408570513 }; // default location - AEI Gliwice
   markers: Marker[] = [];
+  public getScreenHeight: any;
+  public getScreenWidth: any;
   @ViewChild('map', { static: true }) map!: GoogleMap;
 
   addMarker(event: google.maps.MapMouseEvent) {
@@ -42,6 +44,15 @@ export class MapkaComponent {
         lng: position.coords.longitude,
       }
     });
+
+    this.getScreenHeight = window.innerHeight - 100;
+    this.getScreenWidth = window.innerWidth - 500;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenHeight = window.innerHeight - 100;
+    this.getScreenWidth = window.innerWidth - 500;
   }
 
   getMarkerUrl(color: string): string {

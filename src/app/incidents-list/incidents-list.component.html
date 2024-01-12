@@ -1,5 +1,5 @@
-<h3>Indicents List</h3>
-<div *ngIf="(incidents.length!=0)">
+<h3>Incidents List</h3>
+<div *ngIf="(incidents.length!=0)" [style.height.px]="getScreenHeight" style="overflow-y: auto; width: 300px;">
     <div *ngFor="let incident of incidents">
         <app-incident-item [incident]="incident"></app-incident-item>
         <hr>
@@ -7,3 +7,4 @@
 </div>
 <div *ngElse>
     <p>no incidents</p>
+</div>

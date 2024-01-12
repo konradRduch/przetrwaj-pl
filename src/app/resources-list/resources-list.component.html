@@ -1,0 +1,10 @@
+<h3>Resources Points List</h3>
+<div *ngIf="(resourcePoints.length!=0)" [style.height.px]="getScreenHeight" style="overflow-y: auto; width: 300px;">
+    <div *ngFor="let resourcePoint of resourcePoints">
+        <app-resource-item [resourcePoint]="resourcePoint"></app-resource-item>
+        <hr>
+    </div>
+</div>
+<div *ngElse>
+    <p>no resource points</p>
+</div>
