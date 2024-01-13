@@ -4,7 +4,7 @@
     padding: 2px 15px;
     border: solid darkgreen 3px;
     box-shadow: none;
-    border-radius: 14px;
+    border-radius: 9px;
     align-items: center;
     cursor: pointer;
     text-transform: uppercase;
@@ -16,7 +16,7 @@
     padding: 2px 15px;
     border: solid darkred 3px;
     box-shadow: none;
-    border-radius: 14px;
+    border-radius: 9px;
     align-items: center;
     cursor: pointer;
     text-transform: uppercase;
