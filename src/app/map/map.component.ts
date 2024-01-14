@@ -1,5 +1,6 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { CommonModule } from '@angular/common';
 
 interface Marker {
   position: {
@@ -16,7 +17,8 @@ interface Marker {
   selector: 'app-map',
   standalone: true,
   imports: [
-    GoogleMapsModule
+    GoogleMapsModule,
+    CommonModule
   ],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css'
