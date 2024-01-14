@@ -1,5 +1,5 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 
 interface Marker {
   position: {
@@ -13,11 +13,15 @@ interface Marker {
 }
 
 @Component({
-  selector: 'app-mapka',
-  templateUrl: './mapka.component.html',
-  styleUrls: ['./mapka.component.css']
+  selector: 'app-map',
+  standalone: true,
+  imports: [
+    GoogleMapsModule
+  ],
+  templateUrl: './map.component.html',
+  styleUrl: './map.component.css'
 })
-export class MapkaComponent {
+export class MapComponent {
   center: google.maps.LatLngLiteral = { lat: 50.28854410989689, lng: 18.678064408570513 }; // default location - AEI Gliwice
   markers: Marker[] = [];
   public getScreenHeight: any;

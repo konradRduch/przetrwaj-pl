@@ -8,10 +8,10 @@ import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { LoadingSpinnerComponent } from './loading-spiner/loading-spinner.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MapkaComponent } from './mapka/mapka.component';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { IncidentsListComponent } from './incidents-list/incidents-list.component';
 import { ResourcesListComponent } from './resources-list/resources-list.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import { ResourcesListComponent } from './resources-list/resources-list.componen
     AuthComponent,
     HeaderComponent,
     LoadingSpinnerComponent,
-    MapkaComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +28,8 @@ import { ResourcesListComponent } from './resources-list/resources-list.componen
     HttpClientModule,
     GoogleMapsModule,
     IncidentsListComponent,
-    ResourcesListComponent
+    ResourcesListComponent,
+    MapComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

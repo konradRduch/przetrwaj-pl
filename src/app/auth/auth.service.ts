@@ -3,13 +3,13 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject, catchError, tap, throwError } from "rxjs";
 import { User } from "./user.model";
 
-export interface AuthResponseData{
-idToken: string
-email: string
-refreshToken: string
-expiresln: string
-localId: string
-registered?: boolean
+export interface AuthResponseData {
+    idToken: string
+    email: string
+    refreshToken: string
+    expiresln: string
+    localId: string
+    registered?: boolean
 }
 
 
@@ -25,52 +25,52 @@ export class AuthService {
 
 
     signup(email: string, password: string) {
-       return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAlbqnSo8o_FpHDSm2zgYpxLuVBiCaPgRw', 
-        {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }
-        ).pipe(catchError(this.handleError), 
-        tap(resData => {
-          this.handleAuthentication(
-            resData.email, 
-            resData.localId,
-            resData.idToken,
-            +resData.expiresln
-            );  
-        })
+        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAlbqnSo8o_FpHDSm2zgYpxLuVBiCaPgRw',
+            {
+                email: email,
+                password: password,
+                returnSecureToken: true
+            }
+        ).pipe(catchError(this.handleError),
+            tap(resData => {
+                this.handleAuthentication(
+                    resData.email,
+                    resData.localId,
+                    resData.idToken,
+                    +resData.expiresln
+                );
+            })
         );
     }
 
 
-    login(email: string, password: string){
+    login(email: string, password: string) {
         return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAlbqnSo8o_FpHDSm2zgYpxLuVBiCaPgRw',
-        {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }
-        ).pipe(catchError(this.handleError),tap(resData => {
+            {
+                email: email,
+                password: password,
+                returnSecureToken: true
+            }
+        ).pipe(catchError(this.handleError), tap(resData => {
             this.handleAuthentication(
-              resData.email, 
-              resData.localId,
-              resData.idToken,
-              +resData.expiresln
-              );  
-          }));
+                resData.email,
+                resData.localId,
+                resData.idToken,
+                +resData.expiresln
+            );
+        }));
     }
 
 
-    private handleAuthentication(email: string,userId: string, token: string, expiresln: number){
+    private handleAuthentication(email: string, userId: string, token: string, expiresln: number) {
         const expirationDate = new Date(
-            new Date().getTime() +  +expiresln *1000 
+            new Date().getTime() + +expiresln * 1000
         );
 
         const user = new User(
-            email, 
+            email,
             userId,
-            token, 
+            token,
             expirationDate
         );
         this.user.next(user);
@@ -78,26 +78,26 @@ export class AuthService {
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMassage = 'An unknown error occurred!';
-    
+
         if (!errorRes.error || !errorRes.error.error) {
             return throwError(errorMassage);
         }
-        
+
         switch (errorRes.error.error.message) {
             case 'EMAIL_EXISTS':
                 errorMassage = 'This email exists already';
-                break;  
+                break;
             case 'EMAIL_NOT_FOUND':
                 errorMassage = 'This email didnt exist';
-                break; 
+                break;
             case 'INVALID_PASSWORD':
                 errorMassage = 'This password is not correct';
                 break;
-                
+
         }
         return throwError(errorMassage);
     }
-  
+
 
 
 

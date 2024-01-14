@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthComponent } from "src/app/auth/auth.component";
-import { MapkaComponent } from "./mapka/mapka.component";
+import { MainViewComponent } from "./main-view/main-view.component";
 
 const appRoutes: Routes = [
     { path: '', redirectTo: ' ', pathMatch: 'full' },
     { path: '', component: AuthComponent},
-    { path: 'mapka', component: MapkaComponent}
+    { path: 'main-view', component: MainViewComponent}
 ];
 
 @NgModule({

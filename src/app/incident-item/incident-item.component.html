@@ -2,7 +2,9 @@
     <h4><b>{{incident.title}}</b></h4>
     <b>Description</b> <br>
     {{incident.description}} <br>
-    <b>address</b> {{incident.address}} <br>
+    <b>address</b> <br> {{incident.address}} <br>
+    <b>location</b> <br> Lat: {{incident.location.latitude}}
+    Long: {{incident.location.longitude}} <br>
     <b>danger level:</b> {{incident.dangerLevel}} <br> <br>
     <b>created at</b> {{incident.creationDate | date: 'medium'}} <br>
     <b>expires at</b> {{incident.expirationDate| date: 'medium'}} <br> <br>

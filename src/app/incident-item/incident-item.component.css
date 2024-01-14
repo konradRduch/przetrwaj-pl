@@ -22,10 +22,12 @@
     text-transform: uppercase;
 }
 
-.btnConfirm:hover, .btnReject:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+.btnConfirm:hover,
+.btnReject:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.btnConfirm:active, .btnReject:active {
+.btnConfirm:active,
+.btnReject:active {
     transform: scale(0.95);
 }
