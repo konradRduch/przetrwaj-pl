@@ -1,5 +1,5 @@
-<h3>Incidents List</h3>
-<div *ngIf="(incidents.length!=0)" [style.height.px]="getScreenHeight"
+<h5>Incidents List</h5>
+<div *ngIf="(incidents.length!=0)"
     style="overflow: auto;">
     <div *ngFor="let incident of incidents">
         <app-incident-item [incident]="incident"></app-incident-item>

@@ -1,7 +1,7 @@
 <div [style.width.px]="getScreenWidth" [style.height.px]="getScreenHeight">
     <google-map
         height="100%"
-        width="98%"
+        width="100%"
         [center]="center"
         (mapDblclick)="addMarker($event)">
         <map-marker *ngFor="let marker of markers"

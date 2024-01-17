@@ -1,22 +1,25 @@
 .btnConfirm {
     color: #fff;
     background-color: green;
-    padding: 2px 15px;
-    border: solid darkgreen 3px;
+    padding: 1px 4px;
+    width: 6em;
+    border: solid darkgreen 2px;
     box-shadow: none;
-    border-radius: 9px;
+    border-radius: 8px;
     align-items: center;
     cursor: pointer;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .btnReject {
     color: #fff;
     background-color: red;
-    padding: 2px 15px;
-    border: solid darkred 3px;
+    padding: 1px 4px;
+    width: 6em;
+    border: solid darkred 2px;
     box-shadow: none;
-    border-radius: 9px;
+    border-radius: 8px;
     align-items: center;
     cursor: pointer;
     text-transform: uppercase;
@@ -30,4 +33,9 @@
 .btnConfirm:active,
 .btnReject:active {
     transform: scale(0.95);
+}
+
+.incidents-div {
+    font-size: small;
+    line-height: 115%;
 }

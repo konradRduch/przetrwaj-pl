@@ -18,18 +18,8 @@ import { ResourcePoint } from '../models/resourcePoint';
 })
 export class ResourcesListComponent {
   resourcePoints: ResourcePoint[] = [];
-  public getScreenHeight: any;
-
+  
   constructor(private resourceService: ResourcesService) {
     this.resourcePoints = resourceService.getResourcesPoints();
-  }
-
-  ngOnInit() {
-    this.getScreenHeight = window.innerHeight - 150;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
-    this.getScreenHeight = window.innerHeight - 150;
   }
 }

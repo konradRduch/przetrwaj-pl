@@ -16,19 +16,8 @@ import { IncidentsService } from '../services/incidents.service';
 })
 export class IncidentsListComponent {
   incidents: Incident[] = [];
-  public getScreenHeight: any;
 
   constructor(private incidentService: IncidentsService) {
     this.incidents = incidentService.getIncidents();
   }
-
-  ngOnInit() {
-    this.getScreenHeight = window.innerHeight - 150;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
-    this.getScreenHeight = window.innerHeight - 150;
-  }
-
 }
