@@ -5,20 +5,19 @@ import { Incident } from '../models/incident';
   providedIn: 'root'
 })
 export class IncidentsService {
-
-  Incidents: Incident[] = [];
+  incidents: Incident[] = [];
 
   constructor() { this.onInit(); }
 
   onInit() {
-    this.Incidents = [
+    this.incidents = [
       {
         title: "Incident 1",
         description: "Description 1",
         address: "Address 1",
         location: {
-          latitude: 0,
-          longitude: 0
+          latitude: 50.289249427433276,
+          longitude: 18.677359521591264
         },
         creationDate: new Date("2024-01-01T00:00:00.000Z"),
         expirationDate: new Date("2024-02-01T00:00:00.000Z"),
@@ -29,8 +28,8 @@ export class IncidentsService {
         description: "Description 2",
         address: "Address 2",
         location: {
-          latitude: 0,
-          longitude: 0
+          latitude: 50.28964178913704,
+          longitude: 18.67766363209228
         },
         creationDate: new Date("2024-01-01T00:00:00.000Z"),
         expirationDate: new Date("2024-02-01T00:00:00.000Z"),
@@ -40,34 +39,34 @@ export class IncidentsService {
   }
 
   addIncident(incident: Incident) {
-    this.Incidents.push(incident);
+    this.incidents.push(incident);
   }
 
   removeIncident(incident: Incident) {
-    this.Incidents = this.Incidents.filter(i => i !== incident);
+    this.incidents = this.incidents.filter(i => i !== incident);
   }
 
   removeIncidentByIndex(index: number) {
-    this.Incidents.splice(index, 1);
+    this.incidents.splice(index, 1);
   }
 
   removeAllIncidents() {
-    this.Incidents = [];
+    this.incidents = [];
   }
 
   getIncidents() {
-    return this.Incidents;
+    return this.incidents;
   }
 
   getIncident(index: number) {
-    return this.Incidents[index];
+    return this.incidents[index];
   }
 
   getIncidentCount() {
-    return this.Incidents.length;
+    return this.incidents.length;
   }
 
   getIncidentIndex(incident: Incident) {
-    return this.Incidents.indexOf(incident);
+    return this.incidents.indexOf(incident);
   }
 }

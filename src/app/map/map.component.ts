@@ -1,6 +1,8 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
+import { IncidentsService } from '../services/incidents.service';
+import { ResourcesService } from '../services/resources.service';
 
 interface Marker {
   position: {
@@ -30,6 +32,8 @@ export class MapComponent {
   public getScreenWidth: any;
   @ViewChild('map', { static: true }) map!: GoogleMap;
 
+  constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService) { }
+
   addMarker(event: google.maps.MapMouseEvent) {
     this.markers.push({
       position: {
@@ -44,6 +48,34 @@ export class MapComponent {
   }
 
   ngOnInit() {
+    this.markers = this.incidentsService.getIncidents().map(incident => {
+      return {
+        position: {
+          lat: incident.location.latitude,
+          lng: incident.location.longitude,
+        },
+        title: incident.title,
+        options: {
+          icon: this.getMarkerUrl('red'),
+        }
+      }
+    });
+
+    this.markers.push(...this.resourcesService.getResourcesPoints().map(resource => {
+      return {
+        position: {
+          lat: resource.location.lat,
+          lng: resource.location.lng,
+        },
+        title: resource.title,
+        options: {
+          icon: this.getMarkerUrl('blue'),
+        }
+      }
+    }));
+
+    console.log(this.markers);
+
     navigator.geolocation.getCurrentPosition(position => {
       this.center = {
         lat: position.coords.latitude,

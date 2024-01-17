@@ -12,6 +12,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import { IncidentsListComponent } from './incidents-list/incidents-list.component';
 import { ResourcesListComponent } from './resources-list/resources-list.component';
 import { MapComponent } from './map/map.component';
+import { IncidentsService } from './services/incidents.service';
+import { ResourcesService } from './services/resources.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,10 @@ import { MapComponent } from './map/map.component';
     ResourcesListComponent,
     MapComponent
   ],
-  providers: [],
+  providers: [
+    IncidentsService,
+    ResourcesService    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
