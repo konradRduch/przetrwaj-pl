@@ -1,7 +1,8 @@
 <div *ngIf="resourcePoint !== undefined && resourcePoint !== null">
     <h6><b>{{resourcePoint.title}}</b></h6>
-    <b>Location</b> <br>
-    Lat: {{resourcePoint.location.lat}} Lng: {{resourcePoint.location.lng}} <br>
-    <b>Resource name</b> <br>
+    <b>Resource type</b> <br>
     {{resourcePoint.resources[0].resourceType.name}} <br>
+    <b>Location</b> <br>
+    Lat: {{resourcePoint.location.lat}} <br>
+    Long: {{resourcePoint.location.lng}} <br>
 </div>
