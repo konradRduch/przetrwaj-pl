@@ -1,8 +1,9 @@
-import { ResourceType } from './resourceType';
+import { IncidentType } from "./incidentType";
 
 export interface Incident {
     title: string,
     description: string,
+    incidentType: IncidentType,
     address: string,
     location: {
         latitude: number,
@@ -11,5 +12,4 @@ export interface Incident {
     creationDate: Date,
     expirationDate: Date,
     dangerLevel: number,
-    recommendedResources?: ResourceType[]
 }

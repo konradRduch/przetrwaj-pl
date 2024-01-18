@@ -1,8 +1,16 @@
 <div *ngIf="resourcePoint !== undefined && resourcePoint !== null">
     <h6><b>{{resourcePoint.title}}</b></h6>
-    <b>Resource type</b> <br>
-    {{resourcePoint.resources[0].resourceType.name}} <br>
-    <b>Location</b> <br>
-    Lat: {{resourcePoint.location.lat}} <br>
-    Long: {{resourcePoint.location.lng}} <br>
-</div>
+    <div
+        *ngIf="resourcePoint.resources !== undefined && resourcePoint.resources !== null">
+        <b>Resources</b> <br>
+        <ul>
+            <li *ngFor="let resource of resourcePoint.resources">
+                <b>{{resource.resourceType.name}}</b> <br>
+                {{resource.resourceType.description}} <br>
+                quantity: <u>{{resource.quantity}} {{resource.unit}}</u> <br>
+            </li>
+        </ul>
+        <b>Location</b> <br>
+        Lat: {{resourcePoint.location.lat}} <br>
+        Long: {{resourcePoint.location.lng}} <br>
+    </div>

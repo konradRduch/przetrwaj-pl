@@ -14,6 +14,10 @@ export class IncidentsService {
       {
         title: "Incident 1",
         description: "Description 1",
+        incidentType: {
+          name: "Type 1",
+          description: "Type 1 description 1"
+        },
         address: "Address 1",
         location: {
           latitude: 50.289249427433276,
@@ -26,6 +30,10 @@ export class IncidentsService {
       {
         title: "Incident 2",
         description: "Description 2",
+        incidentType: {
+          name: "Type 2",
+          description: "Type2 description 2"
+        },
         address: "Address 2",
         location: {
           latitude: 50.28964178913704,

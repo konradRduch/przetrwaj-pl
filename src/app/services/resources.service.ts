@@ -63,11 +63,6 @@ export class ResourcesService {
           resourceType: { name: "Resource 23", description: "description 2" },
           quantity: 2,
           unit: "unit 2",
-        },
-        {
-          resourceType: { name: "Resource 33", description: "description 3" },
-          quantity: 3,
-          unit: "unit 3",
         }]
       }
     ];

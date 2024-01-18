@@ -14,6 +14,7 @@ import { ResourcesListComponent } from './resources-list/resources-list.componen
 import { MapComponent } from './map/map.component';
 import { IncidentsService } from './services/incidents.service';
 import { ResourcesService } from './services/resources.service';
+import { IncidentAddFormComponent } from './incident-add-form/incident-add-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ResourcesService } from './services/resources.service';
     GoogleMapsModule,
     IncidentsListComponent,
     ResourcesListComponent,
-    MapComponent
+    MapComponent,
+    IncidentAddFormComponent
   ],
   providers: [
     IncidentsService,

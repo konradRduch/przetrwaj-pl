@@ -1,0 +1,12 @@
+.incidentAddForm {
+    font-size: smaller;
+    line-height: 120%;
+}
+
+input {
+    height: 50%;
+}
+
+.btn {
+   font-size: smaller; 
+}
