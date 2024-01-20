@@ -3,6 +3,7 @@ import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { IncidentsService } from '../services/incidents.service';
 import { ResourcesService } from '../services/resources.service';
+import { LocationService } from '../services/location.service';
 
 interface Marker {
   position: {
@@ -32,7 +33,7 @@ export class MapComponent {
   public getScreenWidth: any;
   @ViewChild('map', { static: true }) map!: GoogleMap;
 
-  constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService) { }
+  constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService, private locationService: LocationService) { }
 
   addMarker(event: google.maps.MapMouseEvent) {
     this.markers.push({
@@ -45,6 +46,9 @@ export class MapComponent {
         icon: this.getMarkerUrl('green'),
       }
     })
+
+    this.locationService.changeLocation(event.latLng!.lat(), event.latLng!.lng());
+
   }
 
   ngOnInit() {

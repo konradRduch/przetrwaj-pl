@@ -15,6 +15,7 @@ import { MapComponent } from './map/map.component';
 import { IncidentsService } from './services/incidents.service';
 import { ResourcesService } from './services/resources.service';
 import { IncidentAddFormComponent } from './incident-add-form/incident-add-form.component';
+import { LocationService } from './services/location.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { IncidentAddFormComponent } from './incident-add-form/incident-add-form.
   ],
   providers: [
     IncidentsService,
-    ResourcesService    
+    ResourcesService,
+    LocationService    
   ],
   bootstrap: [AppComponent]
 })
