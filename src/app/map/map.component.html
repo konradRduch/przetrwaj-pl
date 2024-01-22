@@ -3,7 +3,8 @@
         height="100%"
         width="100%"
         [center]="center"
-        (mapDblclick)="addMarker($event)">
+        (mapDblclick)="addMarker($event)"
+        (boundsChanged)="getMapCoordinates()">
         <map-marker *ngFor="let marker of markers"
             [position]="marker.position"
             [title]="marker.title"

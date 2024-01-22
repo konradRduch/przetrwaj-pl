@@ -31,7 +31,7 @@ export class MapComponent {
   markers: Marker[] = [];
   public getScreenHeight: any;
   public getScreenWidth: any;
-  @ViewChild('map', { static: true }) map!: GoogleMap;
+  @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
 
   constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService, private locationService: LocationService) { }
 
@@ -48,7 +48,12 @@ export class MapComponent {
     })
 
     this.locationService.changeLocation(event.latLng!.lat(), event.latLng!.lng());
+  }
 
+  // function can be used to get map bounds coordinates and filter incidents/resources
+  getMapCoordinates() {
+    console.log(this.map.getBounds());
+    return this.map.getBounds();
   }
 
   ngOnInit() {
