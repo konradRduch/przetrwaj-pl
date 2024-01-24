@@ -31,11 +31,16 @@ export class MapComponent {
   markers: Marker[] = [];
   public getScreenHeight: any;
   public getScreenWidth: any;
+  private selectedLocation = false;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
 
   constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService, private locationService: LocationService) { }
 
   addMarker(event: google.maps.MapMouseEvent) {
+    if (this.selectedLocation) {
+      this.markers.pop();
+    }
+
     this.markers.push({
       position: {
         lat: event.latLng!.lat(),
@@ -46,6 +51,7 @@ export class MapComponent {
         icon: this.getMarkerUrl('green'),
       }
     })
+    this.selectedLocation = true;
 
     this.locationService.changeLocation(event.latLng!.lat(), event.latLng!.lng());
   }

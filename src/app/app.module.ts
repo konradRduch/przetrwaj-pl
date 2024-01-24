@@ -16,6 +16,7 @@ import { IncidentsService } from './services/incidents.service';
 import { ResourcesService } from './services/resources.service';
 import { IncidentAddFormComponent } from './incident-add-form/incident-add-form.component';
 import { LocationService } from './services/location.service';
+import { ResourceAddFormComponent } from './resource-add-form/resource-add-form.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LocationService } from './services/location.service';
     IncidentsListComponent,
     ResourcesListComponent,
     MapComponent,
-    IncidentAddFormComponent
+    IncidentAddFormComponent,
+    ResourceAddFormComponent
   ],
   providers: [
     IncidentsService,

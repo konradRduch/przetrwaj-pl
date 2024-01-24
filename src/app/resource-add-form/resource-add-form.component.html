@@ -1,0 +1,38 @@
+<form class="incidentAddForm">
+    <h5>Add Resource Point</h5>
+    <b>Resource point name</b>
+    <br>
+    <input type="text" placeholder="Incident Name" />
+    <br>
+    <br>
+    <h6>Resources</h6>
+
+    <!-- resources should have continuous numbers and after clicking add another resource new resource should be added below -->
+    <b>Resource 1</b>
+    <br>
+    <b>Resource type</b>
+    <br>
+    <select>
+        <option value="1">Water</option>
+    </select>
+    <br>
+    <b>Quantity</b>
+    <br>
+    <input type="number">
+    <br>
+    <br>
+    <button class="btn btn-secondary btn-sm">Add another resource</button>
+    <br>
+    <br>
+    <b>Location</b>
+    <br>
+    Lat: {{ latMarker }}
+    <br>
+    Long: {{ lngMarker }}
+    <br>
+    <br>
+    <button type="submit" class="btn btn-secondary">Add Resource point</button>
+    <br>
+    <br>
+    <hr>
+</form>

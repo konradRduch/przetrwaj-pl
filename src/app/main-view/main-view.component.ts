@@ -3,6 +3,7 @@ import { IncidentsListComponent } from '../incidents-list/incidents-list.compone
 import { MapComponent } from '../map/map.component';
 import { ResourcesListComponent } from '../resources-list/resources-list.component';
 import { IncidentAddFormComponent } from '../incident-add-form/incident-add-form.component';
+import { ResourceAddFormComponent } from '../resource-add-form/resource-add-form.component';
 
 @Component({
   selector: 'app-main-view',
@@ -11,7 +12,8 @@ import { IncidentAddFormComponent } from '../incident-add-form/incident-add-form
     IncidentsListComponent,
     ResourcesListComponent,
     MapComponent,
-    IncidentAddFormComponent
+    IncidentAddFormComponent,
+    ResourceAddFormComponent
   ],
   templateUrl: './main-view.component.html',
   styleUrl: './main-view.component.css'
