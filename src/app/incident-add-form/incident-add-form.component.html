@@ -1,15 +1,22 @@
-<form class="incidentAddForm">
+<form class="incidentAddForm" (submit)="addIncident()">
     <h5>Add Incident</h5>
     <b>Incident name and description</b>
     <br>
-    <input type="text" placeholder="Incident Name" />
+    <input type="text"
+        [(ngModel)]="incidentTitle"
+        name="incidentTitle"
+        placeholder="Incident Name" />
     <br>
-    <input type="text" placeholder="Incident Description" />
+    <input type="text" 
+        [(ngModel)]="incidentDescription"
+        name="incidentDescription"
+        placeholder="Incident Description" />
     <br>
     <b>Incident type</b>
     <br>
-    <select>
-        <option value="1">Fire</option>
+    <select [(ngModel)]="incidentTypeName"
+            name="incidentTypeName">
+        <option value="FIRE">Fire</option>
     </select>
     <br>
     <b>Location</b>
