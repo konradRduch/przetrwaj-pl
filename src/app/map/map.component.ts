@@ -58,8 +58,21 @@ export class MapComponent {
 
   // function can be used to get map bounds coordinates and filter incidents/resources
   getMapCoordinates() {
-    console.log(this.map.getBounds());
-    return this.map.getBounds();
+    // bound are adjusted to fetch 3 times more data than visible on screen, because of zooming
+    var mapBounds = this.map.getBounds()!;
+    let verticalCenter = (mapBounds.getNorthEast().lat() + mapBounds.getSouthWest().lat()) / 2;
+    let horizontalCenter = (mapBounds.getNorthEast().lng() + mapBounds.getSouthWest().lng()) / 2;
+    let fetchVerticalDistance = (mapBounds.getNorthEast().lat() - mapBounds.getSouthWest().lat()) * 3;
+    let fetchHorizontalDistance = (mapBounds.getNorthEast().lng() - mapBounds.getSouthWest().lng()) * 3;
+    let northBound = verticalCenter + fetchVerticalDistance;
+    let southBound = verticalCenter - fetchVerticalDistance;
+    let eastBound = horizontalCenter + fetchHorizontalDistance;
+    let westBound = horizontalCenter - fetchHorizontalDistance;
+
+    this.incidentsService.fetchIncidentsByLocation(northBound, southBound, eastBound, westBound);
+    this.resourcesService.fetchResourcePointsByLocation(northBound, southBound, eastBound, westBound);
+    console.log(this.incidentsService.getIncidents());
+    // TODO: get incidents/resources from database
   }
 
   ngOnInit() {

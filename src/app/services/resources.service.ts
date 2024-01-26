@@ -95,4 +95,11 @@ export class ResourcesService {
   getResourcesPoints() {
     return this.ResourcesPoints;
   }
+
+  fetchResourcePointsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
+    // TODO: get incidents/resources from database instead of filtering
+    this.ResourcesPoints = this.ResourcesPoints.filter(resourcePoint => {
+      return resourcePoint.location.lat < northBound && resourcePoint.location.lat > southBound && resourcePoint.location.lng < eastBound && resourcePoint.location.lng > westBound;
+    });
+  }
 }

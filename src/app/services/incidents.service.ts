@@ -77,4 +77,11 @@ export class IncidentsService {
   getIncidentIndex(incident: Incident) {
     return this.incidents.indexOf(incident);
   }
+
+  fetchIncidentsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
+    // TODO: get incidents from database instead of filtering
+    this.incidents = this.incidents.filter(incident => {
+      return incident.location.latitude < northBound && incident.location.latitude > southBound && incident.location.longitude < eastBound && incident.location.longitude > westBound;
+    });
+  }
 }
