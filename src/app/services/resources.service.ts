@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ResourcePoint } from '../models/resourcePoint';
 import { Resource } from '../models/resource';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourcesService {
 
-  ResourcesPoints: ResourcePoint[] = [];
+  private _resourcesPoints: ResourcePoint[] = [];
+  resources = new BehaviorSubject<ResourcePoint[]>(this._resourcesPoints);
 
   constructor() { this.onInit(); }
 
   onInit() {
-    this.ResourcesPoints = [
+    this._resourcesPoints = [
       {
         location: { lat: 50.288541376422316, lng: 18.677392396155188 },
         title: "Resources Point 1",
@@ -69,37 +72,54 @@ export class ResourcesService {
   }
 
   addResourceToPoint(resource: Resource, index: number) {
-    this.ResourcesPoints[index].resources.push(resource);
+    this._resourcesPoints[index].resources.push(resource);
+    this.resources.next(this._resourcesPoints);
   }
 
   removeResourceFromPoint(resource: Resource, index: number) {
-    this.ResourcesPoints[index].resources = this.ResourcesPoints[index].resources.filter(i => i !== resource);
+    this._resourcesPoints[index].resources = this._resourcesPoints[index].resources.filter(i => i !== resource);
+    this.resources.next(this._resourcesPoints);
   }
 
   removeAllResourcesFromPoint(index: number) {
-    this.ResourcesPoints[index].resources = [];
+    this._resourcesPoints[index].resources = [];
+    this.resources.next(this._resourcesPoints);
   }
 
   getResourcesFromPoint(index: number) {
-    return this.ResourcesPoints[index].resources;
+    return this.resources.value[index].resources;
   }
 
   getResourcesCountFromPoint(index: number) {
-    return this.ResourcesPoints[index].resources.length;
+    return this.resources.value[index].resources.length;
   }
 
   getResourcesPointLocation(index: number) {
-    return this.ResourcesPoints[index].location;
+    return this.resources.value[index].location;
   }
 
   getResourcesPoints() {
-    return this.ResourcesPoints;
+    return this.resources.asObservable();
   }
 
+  // function has the same code as function belowe, but it will be used to fetch incidents from database instead of filtering so the code will be different
+  // current implementation is just a placeholder for testing
   fetchResourcePointsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
     // TODO: get incidents/resources from database instead of filtering
-    this.ResourcesPoints = this.ResourcesPoints.filter(resourcePoint => {
-      return resourcePoint.location.lat < northBound && resourcePoint.location.lat > southBound && resourcePoint.location.lng < eastBound && resourcePoint.location.lng > westBound;
+    this.resources.next(this._resourcesPoints.filter(resourcePoint => {
+      return resourcePoint.location.lat < northBound &&
+        resourcePoint.location.lat > southBound &&
+        resourcePoint.location.lng < eastBound &&
+        resourcePoint.location.lng > westBound
+    }));
+  }
+
+  getResourcePointsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
+    return this._resourcesPoints.filter(resourcePoint => {
+      return resourcePoint.location.lat < northBound &&
+        resourcePoint.location.lat > southBound &&
+        resourcePoint.location.lng < eastBound &&
+        resourcePoint.location.lng > westBound
     });
   }
 }

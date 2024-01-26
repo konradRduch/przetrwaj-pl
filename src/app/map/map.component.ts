@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IncidentsService } from '../services/incidents.service';
 import { ResourcesService } from '../services/resources.service';
 import { LocationService } from '../services/location.service';
+import { MapBoundsService } from '../services/map-bounds.service';
 
 interface Marker {
   position: {
@@ -34,7 +35,8 @@ export class MapComponent {
   private selectedLocation = false;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
 
-  constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService, private locationService: LocationService) { }
+  constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService,
+    private locationService: LocationService, private boundService: MapBoundsService) { }
 
   addMarker(event: google.maps.MapMouseEvent) {
     if (this.selectedLocation) {
@@ -71,38 +73,40 @@ export class MapComponent {
 
     this.incidentsService.fetchIncidentsByLocation(northBound, southBound, eastBound, westBound);
     this.resourcesService.fetchResourcePointsByLocation(northBound, southBound, eastBound, westBound);
-    console.log(this.incidentsService.getIncidents());
     // TODO: get incidents/resources from database
+    this.boundService.setBounds(mapBounds.getNorthEast().lat(), mapBounds.getSouthWest().lat(), mapBounds.getNorthEast().lng(), mapBounds.getSouthWest().lng());
   }
 
   ngOnInit() {
-    this.markers = this.incidentsService.getIncidents().map(incident => {
-      return {
-        position: {
-          lat: incident.location.latitude,
-          lng: incident.location.longitude,
-        },
-        title: incident.title,
-        options: {
-          icon: this.getMarkerUrl('red'),
+    this.incidentsService.getIncidents().subscribe(incidents => {
+      this.markers.push(...incidents.map(incident => {
+        return {
+          position: {
+            lat: incident.location.latitude,
+            lng: incident.location.longitude,
+          },
+          title: incident.title,
+          options: {
+            icon: this.getMarkerUrl('red'),
+          }
         }
-      }
+      }));
     });
 
-    this.markers.push(...this.resourcesService.getResourcesPoints().map(resource => {
-      return {
-        position: {
-          lat: resource.location.lat,
-          lng: resource.location.lng,
-        },
-        title: resource.title,
-        options: {
-          icon: this.getMarkerUrl('blue'),
+    this.resourcesService.getResourcesPoints().subscribe(resources => {
+      this.markers.push(...resources.map(resourcePoint => {
+        return {
+          position: {
+            lat: resourcePoint.location.lat,
+            lng: resourcePoint.location.lng,
+          },
+          title: resourcePoint.title,
+          options: {
+            icon: this.getMarkerUrl('blue'),
+          }
         }
-      }
-    }));
-
-    console.log(this.markers);
+      }));
+    });
 
     navigator.geolocation.getCurrentPosition(position => {
       this.center = {

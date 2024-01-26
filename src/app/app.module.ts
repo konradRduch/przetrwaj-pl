@@ -17,6 +17,7 @@ import { ResourcesService } from './services/resources.service';
 import { IncidentAddFormComponent } from './incident-add-form/incident-add-form.component';
 import { LocationService } from './services/location.service';
 import { ResourceAddFormComponent } from './resource-add-form/resource-add-form.component';
+import { MapBoundsService } from './services/map-bounds.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ResourceAddFormComponent } from './resource-add-form/resource-add-form.
   providers: [
     IncidentsService,
     ResourcesService,
-    LocationService    
+    LocationService,
+    MapBoundsService
   ],
   bootstrap: [AppComponent]
 })

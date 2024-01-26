@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Incident } from '../models/incident';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { map } from 'rxjs/internal/operators/map';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IncidentsService {
-  incidents: Incident[] = [];
+  private _incidents: Incident[] = [];
+  incidents = new BehaviorSubject<Incident[]>(this._incidents);
 
   constructor() { this.onInit(); }
 
   onInit() {
-    this.incidents = [
+    this._incidents = [
       {
         title: "Incident 1",
         description: "Description 1",
@@ -44,44 +48,58 @@ export class IncidentsService {
         dangerLevel: 2,
       }
     ];
+    this.incidents.next(this._incidents);
   }
 
   addIncident(incident: Incident) {
-    this.incidents.push(incident);
+    this._incidents.push(incident);
+    this.incidents.next(this._incidents);
   }
 
   removeIncident(incident: Incident) {
-    this.incidents = this.incidents.filter(i => i !== incident);
+    this._incidents = this._incidents.filter(i => i !== incident);
+    this.incidents.next(this._incidents);
   }
 
   removeIncidentByIndex(index: number) {
-    this.incidents.splice(index, 1);
+    this._incidents.splice(index, 1);
+    this.incidents.next(this._incidents);
   }
 
   removeAllIncidents() {
-    this.incidents = [];
+    this._incidents = [];
+    this.incidents.next(this._incidents);
   }
 
   getIncidents() {
-    return this.incidents;
+    return this.incidents.asObservable();
   }
 
   getIncident(index: number) {
-    return this.incidents[index];
+    return this.incidents.asObservable().subscribe(incidents => incidents[index]);
   }
 
   getIncidentCount() {
-    return this.incidents.length;
+    return this.incidents.asObservable().subscribe(incidents => incidents.length);
   }
 
   getIncidentIndex(incident: Incident) {
-    return this.incidents.indexOf(incident);
+    return this.incidents.asObservable().subscribe(incidents => incidents.indexOf(incident));
   }
 
+  // function has the same code as function belowe, but it will be used to fetch incidents from database instead of filtering so the code will be different
+  // current implementation is just a placeholder for testing
   fetchIncidentsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
     // TODO: get incidents from database instead of filtering
-    this.incidents = this.incidents.filter(incident => {
-      return incident.location.latitude < northBound && incident.location.latitude > southBound && incident.location.longitude < eastBound && incident.location.longitude > westBound;
+    this._incidents = this._incidents.filter(incident => incident.location.latitude < northBound && incident.location.latitude > southBound && incident.location.longitude < eastBound && incident.location.longitude > westBound);
+  }
+
+  getIncidentsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
+    return this._incidents.filter(incident => {
+      return incident.location.latitude < northBound &&
+      incident.location.latitude > southBound &&
+      incident.location.longitude < eastBound &&
+      incident.location.longitude > westBound
     });
   }
 }
