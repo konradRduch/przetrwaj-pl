@@ -91,8 +91,13 @@ export class IncidentsService {
   // current implementation is just a placeholder for testing
   fetchIncidentsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
     // TODO: get incidents from database instead of filtering
-    this._incidents = this._incidents.filter(incident => incident.location.latitude < northBound && incident.location.latitude > southBound && incident.location.longitude < eastBound && incident.location.longitude > westBound);
-  }
+    this.incidents.next(this._incidents.filter(incident => {
+      return incident.location.latitude < northBound &&
+        incident.location.latitude > southBound &&
+        incident.location.longitude < eastBound &&
+        incident.location.longitude > westBound
+    }));
+}
 
   getIncidentsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
     return this._incidents.filter(incident => {
