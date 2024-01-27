@@ -5,6 +5,7 @@ import { IncidentsService } from '../services/incidents.service';
 import { ResourcesService } from '../services/resources.service';
 import { LocationService } from '../services/location.service';
 import { MapBoundsService } from '../services/map-bounds.service';
+import { MapMarkersService } from '../services/map-markers.service';
 
 interface Marker {
   position: {
@@ -35,7 +36,7 @@ export class MapComponent {
   private selectedLocation = false;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
 
-  constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService,
+  constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService, private markersService: MapMarkersService,
     private locationService: LocationService, private boundService: MapBoundsService) { }
 
   addMarker(event: google.maps.MapMouseEvent) {
@@ -78,35 +79,7 @@ export class MapComponent {
   }
 
   ngOnInit() {
-    this.incidentsService.getIncidents().subscribe(incidents => {
-      this.markers.push(...incidents.map(incident => {
-        return {
-          position: {
-            lat: incident.location.latitude,
-            lng: incident.location.longitude,
-          },
-          title: incident.title,
-          options: {
-            icon: this.getMarkerUrl('red'),
-          }
-        }
-      }));
-    });
-
-    this.resourcesService.getResourcesPoints().subscribe(resources => {
-      this.markers.push(...resources.map(resourcePoint => {
-        return {
-          position: {
-            lat: resourcePoint.location.lat,
-            lng: resourcePoint.location.lng,
-          },
-          title: resourcePoint.title,
-          options: {
-            icon: this.getMarkerUrl('blue'),
-          }
-        }
-      }));
-    });
+    this.markersService.markers.subscribe(markers => this.markers = markers);
 
     navigator.geolocation.getCurrentPosition(position => {
       this.center = {
