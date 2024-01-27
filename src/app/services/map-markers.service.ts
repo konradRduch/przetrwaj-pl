@@ -7,6 +7,7 @@ import { ResourcesService } from './resources.service';
   providedIn: 'root'
 })
 export class MapMarkersService {
+  markerIncident: any[] = [];
   _markers: any[] = [];
   markers = new BehaviorSubject<any[]>(this._markers);
 
@@ -74,6 +75,7 @@ export class MapMarkersService {
       }));
 
       this._markers = markersArray;
+      this._markers.push(...this.markerIncident);
       this.markers.next(this._markers);
     });
   }
@@ -81,6 +83,14 @@ export class MapMarkersService {
   getMarkers() {
     console.log(this.markers);
     return this.markers.asObservable();
+  }
+
+  addMarker(markerIncident: any[]) {
+    this.markerIncident = markerIncident;
+  }
+
+  clearMarker() {
+    this.markerIncident = []
   }
 
   getMarkerUrl(color: string): string {

@@ -31,20 +31,17 @@ interface Marker {
 export class MapComponent {
   center: google.maps.LatLngLiteral = { lat: 50.28854410989689, lng: 18.678064408570513 }; // default location - AEI Gliwice
   markers: Marker[] = [];
+  markerIncident: any[] = [];
   public getScreenHeight: any;
   public getScreenWidth: any;
-  private selectedLocation = false;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
 
   constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService, private markersService: MapMarkersService,
     private locationService: LocationService, private boundService: MapBoundsService) { }
 
   addMarker(event: google.maps.MapMouseEvent) {
-    if (this.selectedLocation) {
-      this.markers.pop();
-    }
-
-    this.markers.push({
+    this.markerIncident = []
+    this.markerIncident.push({
       position: {
         lat: event.latLng!.lat(),
         lng: event.latLng!.lng(),
@@ -54,8 +51,7 @@ export class MapComponent {
         icon: this.getMarkerUrl('green'),
       }
     })
-    this.selectedLocation = true;
-
+    this.markersService.addMarker(this.markerIncident)
     this.locationService.changeLocation(event.latLng!.lat(), event.latLng!.lng());
   }
 

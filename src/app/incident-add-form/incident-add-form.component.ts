@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LocationService } from '../services/location.service';
 import { IncidentsService } from '../services/incidents.service';
 import { FormsModule } from '@angular/forms';
+import { MapMarkersService } from '../services/map-markers.service';
 
 @Component({
   selector: 'app-incident-add-form',
@@ -23,7 +24,7 @@ export class IncidentAddFormComponent {
     this.lngMarker = lng
   }
 
-  constructor(private locationService: LocationService, private incidentService: IncidentsService) {
+  constructor(private locationService: LocationService, private incidentService: IncidentsService, private mapMarkerService: MapMarkersService) {
    }
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class IncidentAddFormComponent {
         expirationDate: expirationDate,
         dangerLevel: 10,
       };
+      this.mapMarkerService.clearMarker();
       this.incidentService.addIncident(incident);
     }    
 }
