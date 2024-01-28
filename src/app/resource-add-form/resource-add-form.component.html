@@ -1,30 +1,12 @@
-<form class="resourcePointAddForm" (submit)="addResourcePoint()">
-    <h5>Add Resource Point</h5>
+<form class="resourcePointAddForm" >
+    <h5>Add Resources Point</h5>
     <b>Resource point name</b>
+    <br>
     <br>
     <input type="text"
         [(ngModel)]="resourcePointTitle"
         name="resourcePointTitle"
         placeholder="Resource Point Name" />
-    <br>
-    <br>
-    <h6>Resources</h6>
-
-    <!-- resources should have continuous numbers and after clicking add another resource new resource should be added below -->
-    <b>Resource 1</b>
-    <br>
-    <b>Resource type</b>
-    <br>
-    <select>
-        <option value="1">Water</option>
-    </select>
-    <br>
-    <b>Quantity</b>
-    <br>
-    <input type="number">
-    <br>
-    <br>
-    <button class="btn btn-secondary btn-sm">Add another resource</button>
     <br>
     <br>
     <b>Location</b>
@@ -34,8 +16,34 @@
     Long: {{ lngMarker }}
     <br>
     <br>
-    <button type="submit" class="btn btn-secondary">Add Resource point</button>
+    <button class="btn btn-secondary" (click)="addResourcePoint()">Add Resource point</button>
     <br>
     <br>
+    <h6>Add Resources</h6>
+
+    <!-- resources should have continuous numbers and after clicking add another resource new resource should be added below -->
+    <b>Resources Point</b>
+    <br>
+    <select [(ngModel)]="resourcesPointIndex" name="resourcesPointIndex">
+        <option *ngFor="let rp of resourcePointTitles; index as i" [value]="i">{{ rp }}</option>
+    </select>
+    <br>
+    <br>
+    <b>Resource 1</b>
+    <br>
+    <br>
+    <b>Resource type</b>
+    <br>
+    <select [(ngModel)]="resourceTypeName" name="resourceTypeName">
+        <option value="WATER">Water</option>
+    </select>
+    <br>
+    <b>Quantity</b>
+    <br>
+    <input [(ngModel)]="resourceQuantity" name="resourceQuantity"
+             type="number">
+    <br>
+    <br>
+    <button class="btn btn-secondary btn-sm" (click)="addResourceToPoint()">Add another resource</button>
     <hr>
 </form>

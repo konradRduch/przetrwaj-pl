@@ -3,11 +3,13 @@ import { LocationService } from '../services/location.service';
 import { ResourcesService } from '../services/resources.service';
 import { MapMarkersService } from '../services/map-markers.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-resource-add-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,
+            CommonModule],
   templateUrl: './resource-add-form.component.html',
   styleUrl: './resource-add-form.component.css'
 })
@@ -15,6 +17,10 @@ export class ResourceAddFormComponent {
   latMarker: any;
   lngMarker: any;
   resourcePointTitle: string = "";
+  resourcesPointIndex!: number;
+  resourcePointTitles!: string[];
+  resourceTypeName: string = "";
+  resourceQuantity: number = 1;
 
   setLocation(lat: number, lng: number) {
     this.latMarker = lat
@@ -27,6 +33,7 @@ export class ResourceAddFormComponent {
     this.locationService.currentLocation.subscribe(location => {
       this.setLocation(location.lat, location.lng);
     });
+    this.resourcePointTitles = this.resourcesService.getResourcePointTitles()
   }
 
   addResourcePoint() {
@@ -37,6 +44,16 @@ export class ResourceAddFormComponent {
       };
       this.mapMarkerService.clearMarker();
       this.resourcesService.addResourcesPoint(ResourcePoint);
+      this.resourcePointTitles = this.resourcesService.getResourcePointTitles()
     } 
+
+  addResourceToPoint() {
+    const Resource = {
+      resourceType: { name: this.resourceTypeName, description: "NEWdescription" },
+      quantity: this.resourceQuantity,
+      unit: "unit 1",
+    };
+    this.resourcesService.addResourceToPoint(Resource, this.resourcesPointIndex)
+  }
 
 }

@@ -71,10 +71,15 @@ export class ResourcesService {
     ];
   }
 
-  addResourceToPoint(resource: Resource, index: number) {
-    this._resourcesPoints[index].resources.push(resource);
-    this.resources.next(this._resourcesPoints);
-  }
+  addResourceToPoint(resource: Resource, index: number) { 
+    let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name); 
+ 
+    if (existingResource) { 
+        existingResource.quantity += resource.quantity; 
+    } else { 
+        this._resourcesPoints[index].resources.push(resource); 
+    } 
+} 
 
   removeResourceFromPoint(resource: Resource, index: number) {
     this._resourcesPoints[index].resources = this._resourcesPoints[index].resources.filter(i => i !== resource);
@@ -100,6 +105,10 @@ export class ResourcesService {
 
   getResourcesPoints() {
     return this.resources.asObservable();
+  }
+
+  getResourcePointTitles(): string[] {
+    return this._resourcesPoints.map(rp => rp.title);
   }
 
   addResourcesPoint(resourcePoint: ResourcePoint) {
