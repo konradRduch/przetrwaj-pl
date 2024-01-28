@@ -1,8 +1,11 @@
-<form class="incidentAddForm">
+<form class="resourcePointAddForm" (submit)="addResourcePoint()">
     <h5>Add Resource Point</h5>
     <b>Resource point name</b>
     <br>
-    <input type="text" placeholder="Incident Name" />
+    <input type="text"
+        [(ngModel)]="resourcePointTitle"
+        name="resourcePointTitle"
+        placeholder="Resource Point Name" />
     <br>
     <br>
     <h6>Resources</h6>

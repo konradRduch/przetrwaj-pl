@@ -102,6 +102,11 @@ export class ResourcesService {
     return this.resources.asObservable();
   }
 
+  addResourcesPoint(resourcePoint: ResourcePoint) {
+    this._resourcesPoints.push(resourcePoint);
+    this.resources.next(this._resourcesPoints);
+  }
+
   // function has the same code as function belowe, but it will be used to fetch incidents from database instead of filtering so the code will be different
   // current implementation is just a placeholder for testing
   fetchResourcePointsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {

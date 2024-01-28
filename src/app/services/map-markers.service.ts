@@ -7,7 +7,7 @@ import { ResourcesService } from './resources.service';
   providedIn: 'root'
 })
 export class MapMarkersService {
-  markerIncident: any[] = [];
+  addedMarker: any[] = [];
   _markers: any[] = [];
   markers = new BehaviorSubject<any[]>(this._markers);
 
@@ -42,6 +42,7 @@ export class MapMarkersService {
       }));
 
       this._markers = markersArray;
+      this._markers.push(...this.addedMarker);
       this.markers.next(this._markers);
     });
 
@@ -75,7 +76,7 @@ export class MapMarkersService {
       }));
 
       this._markers = markersArray;
-      this._markers.push(...this.markerIncident);
+      this._markers.push(...this.addedMarker);
       this.markers.next(this._markers);
     });
   }
@@ -86,11 +87,11 @@ export class MapMarkersService {
   }
 
   addMarker(markerIncident: any[]) {
-    this.markerIncident = markerIncident;
+    this.addedMarker = markerIncident;
   }
 
   clearMarker() {
-    this.markerIncident = []
+    this.addedMarker = []
   }
 
   getMarkerUrl(color: string): string {
