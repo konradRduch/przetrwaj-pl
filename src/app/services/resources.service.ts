@@ -79,7 +79,19 @@ export class ResourcesService {
     } else { 
         this._resourcesPoints[index].resources.push(resource); 
     } 
-} 
+  } 
+
+  addResourcesToPoint(resources: Resource[], index: number) {
+    for (let resource of resources) {
+        let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name);
+
+        if (existingResource) {
+            existingResource.quantity += resource.quantity;
+        } else {
+            this._resourcesPoints[index].resources.push(resource);
+        }
+    }
+}
 
   removeResourceFromPoint(resource: Resource, index: number) {
     this._resourcesPoints[index].resources = this._resourcesPoints[index].resources.filter(i => i !== resource);
