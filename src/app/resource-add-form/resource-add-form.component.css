@@ -7,11 +7,6 @@ input {
     height: 50%;
 }
 
-.btn {
-   font-size: smaller; 
-}
-
 .btn-sm {
     font-size: smaller;
-    height: 25px;
 }

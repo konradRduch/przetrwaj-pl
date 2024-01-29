@@ -7,7 +7,6 @@
         name="incidentTitle"
         placeholder="Incident Name" />
     <br>
-    <br>
     <input type="text" 
         [(ngModel)]="incidentDescription"
         name="incidentDescription"
@@ -22,13 +21,13 @@
     </select>
     <br>
     <b>Location</b>
-    <br> <!-- latitude and lotitude will be from map event -->
+    <br>
     Lat: {{ latMarker }}
     <br>
     Long: {{ lngMarker }}
     <br>
     <br>
-    <button type="submit" class="btn btn-secondary">Add Incident</button>
+    <button type="submit" class="btn btn-secondary btn-sm">Add Incident</button>
     <br>
     <hr>
 </form>

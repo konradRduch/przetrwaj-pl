@@ -1,16 +1,16 @@
 <div *ngIf="incident !== undefined && incident !== null" class="incidents-div">
     <h6><b>{{incident.title}}</b></h6>
-    <b>description</b> <br> {{incident.description}} <br>
+    <b>Description</b> <br> {{incident.description}} <br>
     <b>Incident type</b> <br>
     {{incident.incidentType.name}} <br>
     {{incident.incidentType.description}} <br>
-    <b>address</b> <br> {{incident.address}} <br>
-    <b>location</b> <br>
+    <b>Address</b> <br> {{incident.address}} <br>
+    <b>Location</b> <br>
     Lat: {{incident.location.latitude}} <br>
     Long: {{incident.location.longitude}} <br>
-    <b>danger level:</b> {{incident.dangerLevel}} <br> <br>
-    <b>created at</b> {{incident.creationDate | date: 'medium'}} <br>
-    <b>expires at</b> {{incident.expirationDate| date: 'medium'}} <br> <br>
+    <b>Danger level:</b> {{incident.dangerLevel}} <br> <br>
+    <b>Created at</b> {{incident.creationDate | date: 'medium'}} <br>
+    <b>Expires at</b> {{incident.expirationDate| date: 'medium'}} <br> <br>
     <div
         *ngIf="incident.incidentType.recommendedResources !== undefined 
         && incident.incidentType.recommendedResources !== null 
@@ -26,6 +26,6 @@
     <div *ngElse>
         <p>no recommended resources</p>
     </div>
-    <button class="btn btn-success">Confirm</button>
-    <button class="btn btn-danger" style="margin-left: 1em">Reject</button>
+    <button class="btn btn-success btn-sm">Confirm</button>
+    <button class="btn btn-danger btn-sm" style="margin-left: 1em">Reject</button>
 </div>

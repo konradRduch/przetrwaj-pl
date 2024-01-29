@@ -21,7 +21,8 @@ export class IncidentsListComponent {
 
   constructor(private incidentService: IncidentsService, private mapBoundsService: MapBoundsService) {
     this.area = mapBoundsService.currentMapBounds.subscribe(bounds => {
-      this.area = bounds; console.log(this.area);
+      this.area = bounds;
+      // console.log(this.area);
       this.incidents = this.incidentService.getIncidentsFromArea(this.area.north, this.area.south, this.area.east, this.area.west);
     });
   }
