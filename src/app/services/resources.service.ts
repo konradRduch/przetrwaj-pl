@@ -87,6 +87,9 @@ export class ResourcesService {
 
         if (existingResource) {
             existingResource.quantity += resource.quantity;
+            if (existingResource.quantity == 0) {
+              this.removeResourceFromPoint(existingResource, index)
+            }
         } else {
             this._resourcesPoints[index].resources.push(resource);
         }

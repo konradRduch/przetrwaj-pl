@@ -5,6 +5,7 @@ import { MapMarkersService } from '../services/map-markers.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Resource } from '../models/resource';
+import { MapBoundsService } from '../services/map-bounds.service';
 
 @Component({
   selector: 'app-resource-add-form',
@@ -28,7 +29,8 @@ export class ResourceAddFormComponent {
     this.lngMarker = lng
   }
 
-  constructor(private locationService: LocationService, private resourcesService: ResourcesService, private mapMarkerService: MapMarkersService ) { }
+  constructor(private locationService: LocationService, private resourcesService: ResourcesService,
+              private mapMarkerService: MapMarkersService, private mapBoundsService: MapBoundsService) { }
 
   ngOnInit() {
     this.locationService.currentLocation.subscribe(location => {
@@ -46,6 +48,8 @@ export class ResourceAddFormComponent {
       this.mapMarkerService.clearMarker();
       this.resourcesService.addResourcesPoint(ResourcePoint);
       this.resourcePointTitles = this.resourcesService.getResourcePointTitles()
+      let bounds = this.mapBoundsService.getBounds()
+      this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)
     } 
 
   addResourceToPoint() {

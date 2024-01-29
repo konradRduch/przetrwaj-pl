@@ -5,7 +5,13 @@
         <b>Resources</b> <br>
         <ul>
             <li *ngFor="let resource of resourcePoint.resources">
-                <b>{{resource.resourceType.name}}</b> <br>
+                <b>{{resource.resourceType.name}}</b>
+                <button type="button"
+                    class="btn-close btn-close-dark"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+                </button>
+                <br>
                 {{resource.resourceType.description}} <br>
                 quantity: <u>{{resource.quantity}} {{resource.unit}}</u> <br>
             </li>

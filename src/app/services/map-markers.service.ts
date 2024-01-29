@@ -82,7 +82,6 @@ export class MapMarkersService {
   }
 
   getMarkers() {
-    console.log(this.markers);
     return this.markers.asObservable();
   }
 
