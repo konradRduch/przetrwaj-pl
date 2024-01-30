@@ -1,4 +1,8 @@
-<h5>Add Resources <button class="btn btn-secondary btn-sm" (click)="showForm = !showForm">+</button></h5>
+<h5
+    style="display: inline-block; vertical-align: baseline; margin-right: 5px;">Add
+    Resources</h5>
+<button class="btn btn-secondary btn-sm" style="font-size: x-small"
+    (click)="showForm = !showForm">▼</button>
 <div *ngIf="showForm">
     <form class="resourceAddForm">
         <b>Resources Point</b>
@@ -9,30 +13,36 @@
         </select>
         <br>
         <br>
-        <div *ngFor="let resource of resources; index as i">
-            <b>Resource {{ i + 1 }}</b>
+        <table *ngFor="let resource of resources; index as i">
+            <tr>
+                <td>Resource type</td>
+                <td>
+                    <select [(ngModel)]="resource.resourceType.name"
+                        name="resourceType{{i}}"
+                        class="type-select">
+                        <option value="WATER">Water</option>
+                        <!-- add more options as needed -->
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>
+                    <input [(ngModel)]="resource.quantity"
+                        name="resourceQuantity{{i}}" type="number"
+                        class="quantity-input">
+                </td>
+            </tr>
             <br>
-            <b>Resource type</b>
-            <br>
-            <select [(ngModel)]="resource.resourceType.name"
-                name="resourceType{{i}}">
-                <option value="WATER">Water</option>
-                <!-- add more options as needed -->
-            </select>
-            <br>
-            <b>Quantity</b>
-            <br>
-            <input [(ngModel)]="resource.quantity" name="resourceQuantity{{i}}"
-                type="number">
-            <br>
-            <br>
-        </div>
-        <button class="btn btn-secondary btn-sm" (click)="addResourceToPoint()">Add
+        </table>
+        <button class="btn btn-secondary btn-sm"
+            (click)="addResourceToPoint()">Add
             another resource</button>
         <br>
         <br>
-        <button class="btn btn-secondary btn-sm" (click)="addResourcesToPoint()">Add
+        <button class="btn btn-secondary btn-sm"
+            (click)="addResourcesToPoint()">Add
             resources to point</button>
-        <hr>
     </form>
 </div>
+<hr>
