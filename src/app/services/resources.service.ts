@@ -71,30 +71,30 @@ export class ResourcesService {
     ];
   }
 
-  addResourceToPoint(resource: Resource, index: number) { 
-    let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name); 
- 
-    if (existingResource) { 
-        existingResource.quantity += resource.quantity; 
-    } else { 
-        this._resourcesPoints[index].resources.push(resource); 
-    } 
-  } 
+  addResourceToPoint(resource: Resource, index: number) {
+    let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name);
+
+    if (existingResource) {
+      existingResource.quantity += resource.quantity;
+    } else {
+      this._resourcesPoints[index].resources.push(resource);
+    }
+  }
 
   addResourcesToPoint(resources: Resource[], index: number) {
     for (let resource of resources) {
-        let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name);
+      let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name);
 
-        if (existingResource) {
-            existingResource.quantity += resource.quantity;
-            if (existingResource.quantity == 0) {
-              this.removeResourceFromPoint(existingResource, index)
-            }
-        } else {
-            this._resourcesPoints[index].resources.push(resource);
+      if (existingResource) {
+        existingResource.quantity += resource.quantity;
+        if (existingResource.quantity == 0) {
+          this.removeResourceFromPoint(existingResource, index)
         }
+      } else {
+        this._resourcesPoints[index].resources.push(resource);
+      }
     }
-}
+  }
 
   removeResourceFromPoint(resource: Resource, index: number) {
     this._resourcesPoints[index].resources = this._resourcesPoints[index].resources.filter(i => i !== resource);
@@ -129,6 +129,10 @@ export class ResourcesService {
   addResourcesPoint(resourcePoint: ResourcePoint) {
     this._resourcesPoints.push(resourcePoint);
     this.resources.next(this._resourcesPoints);
+  }
+
+  getResourcePointIndex(resourcePoint: ResourcePoint) {
+    return this._resourcesPoints.indexOf(resourcePoint);
   }
 
   // function has the same code as function belowe, but it will be used to fetch incidents from database instead of filtering so the code will be different
