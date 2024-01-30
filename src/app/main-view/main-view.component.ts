@@ -24,14 +24,16 @@ import { ResourcePointAddFormComponent } from '../resource-point-add-form/resour
   styleUrl: './main-view.component.css'
 })
 export class MainViewComponent {
-  public getScreenHeight: any;
+  public columnHeight: any;
+  public columnWidth: any;
 
   constructor(public mapMarkerService: MapMarkersService) {
-    this.getScreenHeight = window.innerHeight - 55;
+    this.columnHeight = window.innerHeight - 55;
+    this.columnWidth = 180
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
-    this.getScreenHeight = window.innerHeight - 55;
+    this.columnHeight = window.innerHeight - 55;
   }
 }
