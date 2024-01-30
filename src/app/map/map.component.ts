@@ -32,8 +32,8 @@ export class MapComponent {
   center: google.maps.LatLngLiteral = { lat: 50.28854410989689, lng: 18.678064408570513 }; // default location - AEI Gliwice
   markers: Marker[] = [];
   addedMarker: any[] = [];
-  public getScreenHeight: any;
-  public getScreenWidth: any;
+  public mapHeight: any;
+  public mapWidth: any;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
 
   constructor(private incidentsService: IncidentsService, private resourcesService: ResourcesService, private markersService: MapMarkersService,
@@ -84,14 +84,14 @@ export class MapComponent {
       }
     });
 
-    this.getScreenHeight = window.innerHeight - 55;
-    this.getScreenWidth = window.innerWidth - 480;
+    this.mapHeight = window.innerHeight - 55;
+    this.mapWidth = window.innerWidth - 430;
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
-    this.getScreenHeight = window.innerHeight - 55;
-    this.getScreenWidth = window.innerWidth - 480;
+    this.mapHeight = window.innerHeight - 55;
+    this.mapWidth = window.innerWidth - 430;
   }
 
   getMarkerUrl(color: string): string {

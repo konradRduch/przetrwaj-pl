@@ -1,6 +1,7 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-auto gx-2" [style.height.px]="getScreenHeight" style="overflow-y: auto;">
+    <div class="row gx-0">
+        <div class="col-sm-auto gx-1" [style.height.px]="getScreenHeight"
+            style="overflow-y: auto;">
             <app-incident-add-form
                 *ngIf="(this.mapMarkerService.addedMarker.length!=0)"></app-incident-add-form>
             <!-- there should be ngIf and show component only when needed -->
@@ -9,10 +10,13 @@
         <div class="col-sm-auto gx-2">
             <app-map></app-map>
         </div>
-        <div class="col-sm-auto gx-2" [style.height.px]="getScreenHeight" style="overflow-y: auto;">
+        <div class="col-sm-auto gx-1" [style.height.px]="getScreenHeight"
+            style="overflow-y: auto;">
             <!-- there should be ngIf and show component only when needed and only for moderator -->
             <app-resource-point-add-form
                 *ngIf="(this.mapMarkerService.addedMarker.length!=0)"></app-resource-point-add-form>
             <app-resource-add-form></app-resource-add-form>
             <app-resources-list></app-resources-list>
         </div>
+    </div>
+</div>

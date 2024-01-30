@@ -9,8 +9,10 @@
     Lat: {{incident.location.latitude}} <br>
     Long: {{incident.location.longitude}} <br>
     <b>Danger level:</b> {{incident.dangerLevel}} <br> <br>
-    <b>Created at</b> {{incident.creationDate | date: 'medium'}} <br>
-    <b>Expires at</b> {{incident.expirationDate| date: 'medium'}} <br> <br>
+    <b>Created at:</b> <br>
+    {{incident.creationDate | date: 'medium'}} <br>
+    <b>Expires at:</b> <br>
+    {{incident.expirationDate| date: 'medium'}} <br> <br>
     <div
         *ngIf="incident.incidentType.recommendedResources !== undefined 
         && incident.incidentType.recommendedResources !== null 
@@ -27,5 +29,6 @@
         <p>no recommended resources</p>
     </div>
     <button class="btn btn-success btn-sm">Confirm</button>
-    <button class="btn btn-danger btn-sm" style="margin-left: 1em">Reject</button>
+    <button class="btn btn-danger btn-sm"
+        style="margin-left: 1em">Reject</button>
 </div>
