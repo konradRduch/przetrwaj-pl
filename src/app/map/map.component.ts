@@ -84,7 +84,7 @@ export class MapComponent {
       }
     });
 
-    this.getScreenHeight = window.innerHeight - 100;
+    this.getScreenHeight = window.innerHeight - 60;
     this.getScreenWidth = window.innerWidth - 500;
   }
 
