@@ -19,6 +19,7 @@ import { LocationService } from './services/location.service';
 import { ResourceAddFormComponent } from './resource-add-form/resource-add-form.component';
 import { MapBoundsService } from './services/map-bounds.service';
 import { MapMarkersService } from './services/map-markers.service';
+import { ResourcePointAddFormComponent } from './resource-point-add-form/resource-point-add-form.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MapMarkersService } from './services/map-markers.service';
     ResourcesListComponent,
     MapComponent,
     IncidentAddFormComponent,
-    ResourceAddFormComponent
+    ResourceAddFormComponent,
+    ResourcePointAddFormComponent
   ],
   providers: [
     IncidentsService,

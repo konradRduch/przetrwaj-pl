@@ -1,28 +1,10 @@
-<form class="resourcePointAddForm" >
-    <h5>Add Resources Point</h5>
-    <b>Resource point name</b>
-    <br>
-    <input type="text"
-        [(ngModel)]="resourcePointTitle"
-        name="resourcePointTitle"
-        placeholder="Resource Point Name" />
-    <br>
-    <br>
-    <b>Location</b>
-    <br>
-    Lat: {{ latMarker }}
-    <br>
-    Long: {{ lngMarker }}
-    <br>
-    <br>
-    <button class="btn btn-secondary btn-sm" (click)="addResourcePoint()">Add Resource point</button>
-    <br>
-    <hr>
+<form class="resourceAddForm">
     <h5>Add Resources</h5>
     <b>Resources Point</b>
     <br>
     <select [(ngModel)]="resourcesPointIndex" name="resourcesPointIndex">
-        <option *ngFor="let rp of resourcePointTitles; index as i" [value]="i">{{ rp }}</option>
+        <option *ngFor="let rp of resourcePointTitles; index as i"
+            [value]="i">{{ rp }}</option>
     </select>
     <br>
     <br>
@@ -31,20 +13,24 @@
         <br>
         <b>Resource type</b>
         <br>
-        <select [(ngModel)]="resource.resourceType.name" name="resourceType{{i}}">
+        <select [(ngModel)]="resource.resourceType.name"
+            name="resourceType{{i}}">
             <option value="WATER">Water</option>
             <!-- add more options as needed -->
         </select>
         <br>
         <b>Quantity</b>
         <br>
-        <input [(ngModel)]="resource.quantity" name="resourceQuantity{{i}}" type="number">
+        <input [(ngModel)]="resource.quantity" name="resourceQuantity{{i}}"
+            type="number">
         <br>
         <br>
     </div>
-    <button class="btn btn-secondary btn-sm" (click)="addResourceToPoint()">Add another resource</button>
+    <button class="btn btn-secondary btn-sm" (click)="addResourceToPoint()">Add
+        another resource</button>
     <br>
     <br>
-    <button class="btn btn-secondary btn-sm" (click)="addResourcesToPoint()">Add resources to point</button>
+    <button class="btn btn-secondary btn-sm" (click)="addResourcesToPoint()">Add
+        resources to point</button>
     <hr>
 </form>

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { LocationService } from '../services/location.service';
 import { ResourcesService } from '../services/resources.service';
-import { MapMarkersService } from '../services/map-markers.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Resource } from '../models/resource';
-import { MapBoundsService } from '../services/map-bounds.service';
 
 @Component({
   selector: 'app-resource-add-form',
@@ -15,42 +13,15 @@ import { MapBoundsService } from '../services/map-bounds.service';
   styleUrl: './resource-add-form.component.css'
 })
 export class ResourceAddFormComponent {
-  latMarker: any;
-  lngMarker: any;
-  resourcePointTitle: string = "";
-  resourcesPointIndex!: number;
-  resourcePointTitles!: string[];
   resources: Resource[] = [];
+  resourcesPointIndex!: number;
   resourceTypeName: string = "typeName";
+  resourcePointTitles!: string[];
   resourceQuantity: number = 1;
 
-  setLocation(lat: number, lng: number) {
-    this.latMarker = lat
-    this.lngMarker = lng
-  }
-
-  constructor(private locationService: LocationService, private resourcesService: ResourcesService,
-              private mapMarkerService: MapMarkersService, private mapBoundsService: MapBoundsService) { }
-
-  ngOnInit() {
-    this.locationService.currentLocation.subscribe(location => {
-      this.setLocation(location.lat, location.lng);
-    });
+  constructor(private locationService: LocationService, private resourcesService: ResourcesService) {
     this.resourcePointTitles = this.resourcesService.getResourcePointTitles()
   }
-
-  addResourcePoint() {
-    const ResourcePoint = {
-        location: { lat: this.latMarker, lng: this.lngMarker },
-        title: this.resourcePointTitle,
-        resources: []
-      };
-      this.mapMarkerService.clearMarker();
-      this.resourcesService.addResourcesPoint(ResourcePoint);
-      this.resourcePointTitles = this.resourcesService.getResourcePointTitles()
-      let bounds = this.mapBoundsService.getBounds()
-      this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)
-    } 
 
   addResourceToPoint() {
     this.resources.push({

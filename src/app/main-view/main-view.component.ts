@@ -6,6 +6,7 @@ import { IncidentAddFormComponent } from '../incident-add-form/incident-add-form
 import { ResourceAddFormComponent } from '../resource-add-form/resource-add-form.component';
 import { MapMarkersService } from '../services/map-markers.service';
 import { CommonModule } from '@angular/common';
+import { ResourcePointAddFormComponent } from '../resource-point-add-form/resource-point-add-form.component';
 
 @Component({
   selector: 'app-main-view',
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     MapComponent,
     IncidentAddFormComponent,
     ResourceAddFormComponent,
+    ResourcePointAddFormComponent,
     CommonModule
   ],
   templateUrl: './main-view.component.html',

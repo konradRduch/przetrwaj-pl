@@ -1,0 +1,21 @@
+<form class="resourcePointAddForm">
+    <h5>Add Resources Point</h5>
+    <b>Resource point name</b>
+    <br>
+    <input type="text"
+        [(ngModel)]="resourcePointTitle"
+        name="resourcePointTitle"
+        placeholder="Resource Point Name" />
+    <br>
+    <br>
+    <b>Location</b>
+    <br>
+    Lat: {{ latMarker }}
+    <br>
+    Long: {{ lngMarker }}
+    <br>
+    <br>
+    <button class="btn btn-secondary btn-sm" (click)="addResourcePoint()">Add
+        Resource point</button>
+    <hr>
+</form>
