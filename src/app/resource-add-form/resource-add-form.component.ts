@@ -23,6 +23,7 @@ export class ResourceAddFormComponent {
     this.resourcesService.resources.subscribe(() => {
       this.resourcePointTitles = this.resourcesService.getResourcePointTitles();
     });
+    this.addResourceToPoint();
   }
 
   addResourceToPoint() {
@@ -36,5 +37,6 @@ export class ResourceAddFormComponent {
   addResourcesToPoint() {
     this.resourcesService.addResourcesToPoint(this.resources, this.resourcesPointIndex)
     this.resources = []
+    this.addResourceToPoint();
   }
 }

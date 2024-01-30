@@ -3,10 +3,14 @@
     line-height: 120%;
 }
 
-input {
-    height: 50%;
-}
-
 .btn-sm {
     font-size: smaller;
+}
+
+.quantity-input {
+    width: 110px;
+}
+
+.type-select {
+    width: 110px;
 }

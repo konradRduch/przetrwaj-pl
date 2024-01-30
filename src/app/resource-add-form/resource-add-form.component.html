@@ -8,24 +8,28 @@
     </select>
     <br>
     <br>
-    <div *ngFor="let resource of resources; index as i">
-        <b>Resource {{ i + 1 }}</b>
+    <table *ngFor="let resource of resources; index as i">
+        <tr>
+            <td>Resource type</td>
+            <td>
+                <select [(ngModel)]="resource.resourceType.name"
+                    name="resourceType{{i}}"
+                    class="type-select">
+                    <option value="WATER">Water</option>
+                    <!-- add more options as needed -->
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td>
+                <input [(ngModel)]="resource.quantity"
+                    name="resourceQuantity{{i}}" type="number"
+                    class="quantity-input">
+            </td>
+        </tr>
         <br>
-        <b>Resource type</b>
-        <br>
-        <select [(ngModel)]="resource.resourceType.name"
-            name="resourceType{{i}}">
-            <option value="WATER">Water</option>
-            <!-- add more options as needed -->
-        </select>
-        <br>
-        <b>Quantity</b>
-        <br>
-        <input [(ngModel)]="resource.quantity" name="resourceQuantity{{i}}"
-            type="number">
-        <br>
-        <br>
-    </div>
+    </table>
     <button class="btn btn-secondary btn-sm" (click)="addResourceToPoint()">Add
         another resource</button>
     <br>

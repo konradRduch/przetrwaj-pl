@@ -85,13 +85,13 @@ export class MapComponent {
     });
 
     this.getScreenHeight = window.innerHeight - 55;
-    this.getScreenWidth = window.innerWidth - 500;
+    this.getScreenWidth = window.innerWidth - 480;
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
-    this.getScreenHeight = window.innerHeight - 100;
-    this.getScreenWidth = window.innerWidth - 500;
+    this.getScreenHeight = window.innerHeight - 55;
+    this.getScreenWidth = window.innerWidth - 480;
   }
 
   getMarkerUrl(color: string): string {
