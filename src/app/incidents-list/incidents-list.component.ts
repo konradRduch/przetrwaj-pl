@@ -18,6 +18,7 @@ import { MapBoundsService } from '../services/map-bounds.service';
 export class IncidentsListComponent {
   incidents: Incident[] = [];
   area: any;
+  public getScreenHeight: any;
 
   constructor(private incidentService: IncidentsService, private mapBoundsService: MapBoundsService) {
     this.area = mapBoundsService.currentMapBounds.subscribe(bounds => {
@@ -25,5 +26,11 @@ export class IncidentsListComponent {
       // console.log(this.area);
       this.incidents = this.incidentService.getIncidentsFromArea(this.area.north, this.area.south, this.area.east, this.area.west);
     });
+    this.getScreenHeight = window.innerHeight - 85;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenHeight = window.innerHeight - 85;
   }
 }

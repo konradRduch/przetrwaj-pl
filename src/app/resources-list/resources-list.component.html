@@ -1,6 +1,6 @@
 <h5>Resources Points List</h5>
 <div *ngIf="(resourcePoints.length!=0)" class="resources-div"
-    style="overflow: auto;">
+    [style.max-height.px]="getScreenHeight" style="overflow: auto;">
     <div *ngFor="let resourcePoint of resourcePoints">
         <app-resource-item
             [resourcePoint]="resourcePoint"></app-resource-item>

@@ -18,6 +18,7 @@ export class ResourceAddFormComponent {
   resourceTypeName: string = "typeName";
   resourcePointTitles!: string[];
   resourceQuantity: number = 1;
+  showForm = false
 
   constructor(private locationService: LocationService, private resourcesService: ResourcesService) {
     this.resourcesService.resources.subscribe(() => {

@@ -20,6 +20,7 @@ import { MapBoundsService } from '../services/map-bounds.service';
 export class ResourcesListComponent {
   resourcePoints: ResourcePoint[] = [];
   area: any;
+  public getScreenHeight: any;
 
   constructor(private resourceService: ResourcesService, private resourcesService: ResourcesService, private mapBoundsService: MapBoundsService) {
     this.area = mapBoundsService.currentMapBounds.subscribe(bounds => {
@@ -27,5 +28,11 @@ export class ResourcesListComponent {
       // console.log(this.area); 
       this.resourcePoints = this.resourceService.getResourcePointsFromArea(this.area.north, this.area.south, this.area.east, this.area.west);
     });
+    this.getScreenHeight = window.innerHeight - 130;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenHeight = window.innerHeight - 130;
   }
 }
