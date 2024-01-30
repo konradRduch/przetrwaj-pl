@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { IncidentsListComponent } from '../incidents-list/incidents-list.component';
 import { MapComponent } from '../map/map.component';
 import { ResourcesListComponent } from '../resources-list/resources-list.component';
@@ -24,6 +24,14 @@ import { ResourcePointAddFormComponent } from '../resource-point-add-form/resour
   styleUrl: './main-view.component.css'
 })
 export class MainViewComponent {
+  public getScreenHeight: any;
 
-  constructor(public mapMarkerService: MapMarkersService) {}
+  constructor(public mapMarkerService: MapMarkersService) {
+    this.getScreenHeight = window.innerHeight - 55;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenHeight = window.innerHeight - 55;
+  }
 }
