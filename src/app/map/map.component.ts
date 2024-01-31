@@ -85,13 +85,11 @@ export class MapComponent {
     });
 
     this.mapHeight = window.innerHeight - 55;
-    this.mapWidth = window.innerWidth - 430;
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.mapHeight = window.innerHeight - 55;
-    this.mapWidth = window.innerWidth - 430;
   }
 
   getMarkerUrl(color: string): string {

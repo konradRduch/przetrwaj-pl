@@ -29,7 +29,6 @@ export class MainViewComponent {
 
   constructor(public mapMarkerService: MapMarkersService) {
     this.columnHeight = window.innerHeight - 55;
-    this.columnWidth = 180
   }
 
   @HostListener('window:resize', ['$event'])

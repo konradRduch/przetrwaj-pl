@@ -1,16 +1,18 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-auto gx-2" [style.height.px]="columnHeight" [style.width.px]="columnWidth" 
+        <div class="col-sm gx-3" [style.height.px]="columnHeight"
+            [style.width.px]="columnWidth"
             style="overflow: auto;">
             <app-incident-add-form
                 *ngIf="(this.mapMarkerService.addedMarker.length!=0)"></app-incident-add-form>
             <!-- there should be ngIf and show component only when needed -->
             <app-incidents-list></app-incidents-list>
         </div>
-        <div class="col-sm-auto gx-2">
+        <div class="col-sm-9">
             <app-map></app-map>
         </div>
-        <div class="col-sm-auto gx-2" [style.height.px]="columnHeight" [style.width.px]="columnWidth" 
+        <div class="col-sm gx-3" [style.height.px]="columnHeight"
+            [style.width.px]="columnWidth"
             style="overflow: auto;">
             <!-- there should be ngIf and show component only when needed and only for moderator -->
             <app-resource-point-add-form
