@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Incident } from '../models/incident';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
+import { MapBoundsService } from './map-bounds.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class IncidentsService {
   private _incidents: Incident[] = [];
   incidents = new BehaviorSubject<Incident[]>(this._incidents);
 
-  constructor(private http: HttpClient) { this.onInit(); }
+  constructor(private http: HttpClient, private mapBoundsService: MapBoundsService) { this.onInit(); }
 
   onInit() {
     this._incidents = [
@@ -29,6 +30,8 @@ export class IncidentsService {
         creationDate: new Date("2024-01-01T00:00:00.000Z"),
         expirationDate: new Date("2024-02-01T00:00:00.000Z"),
         dangerLevel: 1,
+        confirmations: 0,
+        rejections: 0
       },
       {
         title: "Incident 2",
@@ -45,6 +48,8 @@ export class IncidentsService {
         creationDate: new Date("2024-01-01T00:00:00.000Z"),
         expirationDate: new Date("2024-02-01T00:00:00.000Z"),
         dangerLevel: 2,
+        confirmations: 1,
+        rejections: 0
       }
     ];
     this.incidents.next(this._incidents);
@@ -90,12 +95,37 @@ export class IncidentsService {
   // current implementation is just a placeholder for testing
   fetchIncidentsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
     // TODO: get incidents from database instead of filtering
-    this.incidents.next(this._incidents.filter(incident => {
-      return incident.location.latitude < northBound &&
-        incident.location.latitude > southBound &&
-        incident.location.longitude < eastBound &&
-        incident.location.longitude > westBound
-    }));
+    this.http.post<any[]>('/api/v1/report/getRepsByLoc',
+      {
+        latitudeLowerBoundry: this.mapBoundsService.getBounds().south,
+        latitudeUpperBoundry: this.mapBoundsService.getBounds().north,
+        longitudeLowerBoundry: this.mapBoundsService.getBounds().west,
+        longitudeUpperBoundry: this.mapBoundsService.getBounds().east
+      }
+    ).subscribe(data => {
+      this._incidents = data.map(report => {
+        console.log(report);
+        return {
+          title: "title",
+          description: report.description,
+          incidentType: {
+            name: report.reportType.typeName,
+            description: report.reportType.typeDescription
+          },
+          location: {
+            address: report.location.address,
+            latitude: report.location.latitude,
+            longitude: report.location.longitude
+          },
+          creationDate: report.date,
+          expirationDate: new Date(Date.now()),
+          dangerLevel: report.threatDegree,
+          confirmations: report.confirmations,
+          rejections: report.rejections,
+        }
+      });
+      this.incidents.next(this._incidents);
+    });
   }
 
   getIncidentsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {

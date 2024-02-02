@@ -54,6 +54,8 @@ export class IncidentAddFormComponent {
         creationDate: creationDate,
         expirationDate: expirationDate,
         dangerLevel: 10,
+        confirmations: 0,
+        rejections: 0
       };
       this.mapMarkerService.clearMarker()
       this.incidentService.addIncident(incident)
