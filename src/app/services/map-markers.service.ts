@@ -31,8 +31,8 @@ export class MapMarkersService {
       markersArray.push(...this.resourcesService.resources.value.map(resourcePoint => {
         return {
           position: {
-            lat: resourcePoint.location.lat,
-            lng: resourcePoint.location.lng,
+            lat: resourcePoint.location.latitude,
+            lng: resourcePoint.location.longitude,
           },
           title: resourcePoint.title,
           options: {
@@ -52,8 +52,8 @@ export class MapMarkersService {
       markersArray = resources.map(resourcePoint => {
         return {
           position: {
-            lat: resourcePoint.location.lat,
-            lng: resourcePoint.location.lng,
+            lat: resourcePoint.location.latitude,
+            lng: resourcePoint.location.longitude,
           },
           title: resourcePoint.title,
           options: {

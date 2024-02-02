@@ -47,7 +47,7 @@ export class AuthService {
     login(email: string, password: string) {
         return this.http.post<AuthResponseData>('/api/v1/auth',
             {
-                email: email,
+                username: email,
                 password: password,
                 returnSecureToken: true
             }
@@ -97,8 +97,4 @@ export class AuthService {
         }
         return throwError(errorMassage);
     }
-
-
-
-
 }

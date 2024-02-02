@@ -1,14 +1,11 @@
 import { IncidentType } from "./incidentType";
+import { Location } from "./location";
 
 export interface Incident {
     title: string,
     description: string,
     incidentType: IncidentType,
-    address: string,
-    location: {
-        latitude: number,
-        longitude: number
-    }
+    location: Location;
     creationDate: Date,
     expirationDate: Date,
     dangerLevel: number,

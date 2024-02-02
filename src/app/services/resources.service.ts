@@ -17,7 +17,7 @@ export class ResourcesService {
   onInit() {
     this._resourcesPoints = [
       {
-        location: { lat: 50.288541376422316, lng: 18.677392396155188 },
+        location: { address: "address 1", latitude: 50.288541376422316, longitude: 18.677392396155188 },
         title: "Resources Point 1",
         resources: [{
           resourceType: { name: "Resource 1", description: "description 1" },
@@ -36,7 +36,7 @@ export class ResourcesService {
         }]
       },
       {
-        location: { lat: 50.28868249257966, lng: 18.67758005929157 },
+        location: { address: "address 2", latitude: 50.28868249257966, longitude: 18.67758005929157 },
         title: "Resources Point 2",
         resources: [{
           resourceType: { name: "Resource 12", description: "description 1" },
@@ -55,7 +55,7 @@ export class ResourcesService {
         }]
       },
       {
-        location: { lat: 50.28870421262463, lng: 18.677265243529188 },
+        location: { address: "address 3", latitude: 50.28870421262463, longitude: 18.677265243529188 },
         title: "Resources Point 3",
         resources: [{
           resourceType: { name: "Resource 13", description: "description 1" },
@@ -140,19 +140,19 @@ export class ResourcesService {
   fetchResourcePointsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
     // TODO: get incidents/resources from database instead of filtering
     this.resources.next(this._resourcesPoints.filter(resourcePoint => {
-      return resourcePoint.location.lat < northBound &&
-        resourcePoint.location.lat > southBound &&
-        resourcePoint.location.lng < eastBound &&
-        resourcePoint.location.lng > westBound
+      return resourcePoint.location.latitude < northBound &&
+        resourcePoint.location.latitude > southBound &&
+        resourcePoint.location.longitude < eastBound &&
+        resourcePoint.location.longitude > westBound
     }));
   }
 
   getResourcePointsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
     return this._resourcesPoints.filter(resourcePoint => {
-      return resourcePoint.location.lat < northBound &&
-        resourcePoint.location.lat > southBound &&
-        resourcePoint.location.lng < eastBound &&
-        resourcePoint.location.lng > westBound
+      return resourcePoint.location.latitude < northBound &&
+        resourcePoint.location.latitude > southBound &&
+        resourcePoint.location.longitude < eastBound &&
+        resourcePoint.location.longitude > westBound
     });
   }
 }

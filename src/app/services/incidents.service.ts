@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Incident } from '../models/incident';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { map } from 'rxjs/internal/operators/map';
-import { Observable } from 'rxjs/internal/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class IncidentsService {
   private _incidents: Incident[] = [];
   incidents = new BehaviorSubject<Incident[]>(this._incidents);
 
-  constructor() { this.onInit(); }
+  constructor(private http: HttpClient) { this.onInit(); }
 
   onInit() {
     this._incidents = [
@@ -22,8 +21,8 @@ export class IncidentsService {
           name: "Type 1",
           description: "Type 1 description 1"
         },
-        address: "Address 1",
         location: {
+          address: "Address 1",
           latitude: 50.289249427433276,
           longitude: 18.677359521591264
         },
@@ -38,8 +37,8 @@ export class IncidentsService {
           name: "Type 2",
           description: "Type2 description 2"
         },
-        address: "Address 2",
         location: {
+          address: "Address 2",
           latitude: 50.28964178913704,
           longitude: 18.67766363209228
         },
@@ -97,14 +96,14 @@ export class IncidentsService {
         incident.location.longitude < eastBound &&
         incident.location.longitude > westBound
     }));
-}
+  }
 
   getIncidentsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
     return this._incidents.filter(incident => {
       return incident.location.latitude < northBound &&
-      incident.location.latitude > southBound &&
-      incident.location.longitude < eastBound &&
-      incident.location.longitude > westBound
+        incident.location.latitude > southBound &&
+        incident.location.longitude < eastBound &&
+        incident.location.longitude > westBound
     });
   }
 }

@@ -46,8 +46,8 @@ export class IncidentAddFormComponent {
           name: this.incidentTypeName,
           description: "Type 1 description 1"
         },
-        address: "Address 1",
         location: {
+          address: "Address 1",
           latitude: this.latMarker,
           longitude: this.lngMarker
         },

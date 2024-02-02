@@ -1,10 +1,8 @@
 import { Resource } from "./resource";
+import { Location } from "./location";
 
 export interface ResourcePoint {
-    location: {
-        lat: number,
-        lng: number,
-    };
+    location: Location;
     title: string;
     resources: Resource[];
 }

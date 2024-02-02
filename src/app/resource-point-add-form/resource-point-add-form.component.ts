@@ -34,7 +34,7 @@ export class ResourcePointAddFormComponent {
 
   addResourcePoint() {
     const ResourcePoint = {
-      location: { lat: this.latMarker, lng: this.lngMarker },
+      location: { address:"address 1", latitude: this.latMarker, longitude: this.lngMarker },
       title: this.resourcePointTitle,
       resources: []
     };
