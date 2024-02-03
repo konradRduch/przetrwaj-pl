@@ -123,7 +123,7 @@ export class IncidentsService {
             longitude: report.location.longitude
           },
           creationDate: report.date,
-          expirationDate: new Date(Date.now()),
+          expirationDate: new Date(Date.parse(report.date) + 1000 * 60 * 60 * 24 * 7),
           dangerLevel: report.threatDegree,
           confirmations: report.confirmations,
           rejections: report.rejections,
