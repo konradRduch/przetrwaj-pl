@@ -14,50 +14,31 @@ export class IncidentsService {
   constructor(private http: HttpClient, private mapBoundsService: MapBoundsService) { this.onInit(); }
 
   onInit() {
-    this._incidents = [
-      {
-        title: "Incident 1",
-        description: "Description 1",
-        incidentType: {
-          name: "Type 1",
-          description: "Type 1 description 1"
-        },
-        location: {
-          address: "Address 1",
-          latitude: 50.289249427433276,
-          longitude: 18.677359521591264
-        },
-        creationDate: new Date("2024-01-01T00:00:00.000Z"),
-        expirationDate: new Date("2024-02-01T00:00:00.000Z"),
-        dangerLevel: 1,
-        confirmations: 0,
-        rejections: 0
-      },
-      {
-        title: "Incident 2",
-        description: "Description 2",
-        incidentType: {
-          name: "Type 2",
-          description: "Type2 description 2"
-        },
-        location: {
-          address: "Address 2",
-          latitude: 50.28964178913704,
-          longitude: 18.67766363209228
-        },
-        creationDate: new Date("2024-01-01T00:00:00.000Z"),
-        expirationDate: new Date("2024-02-01T00:00:00.000Z"),
-        dangerLevel: 2,
-        confirmations: 1,
-        rejections: 0
-      }
-    ];
-    this.incidents.next(this._incidents);
+    let bounds = this.mapBoundsService.getBounds()
+    this.fetchIncidentsByLocation(bounds.north, bounds.south, bounds.east, bounds.west)
   }
 
-  addIncident(incident: Incident) {
-    this._incidents.push(incident);
-    this.incidents.next(this._incidents);
+  addIncident(lat: number, lng: number, locationToAdd: any, incidentDescription: any) {
+    this.http.post<any>('/api/v1/location', {
+      'address': "sinadal",
+      'longitude': lng,
+      'latitude': lat
+    }).subscribe(resp => {
+      locationToAdd = {
+        id: resp.id,
+        address: resp.address,
+        latitude: resp.latitude,
+        longitude: resp.longitude
+      };
+      this.http.post<any>('/api/v1/report', {
+        locationId: locationToAdd.id, 
+        reportTypeID: "1", 
+        threatDegree: "999",
+        description: incidentDescription
+      }).subscribe(resp => {
+        console.log(resp);
+      });
+    });
   }
 
   removeIncident(incident: Incident) {
@@ -128,12 +109,7 @@ export class IncidentsService {
     });
   }
 
-  getIncidentsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
-    return this._incidents.filter(incident => {
-      return incident.location.latitude < northBound &&
-        incident.location.latitude > southBound &&
-        incident.location.longitude < eastBound &&
-        incident.location.longitude > westBound
-    });
+  getAllIncidents() {
+    return this._incidents
   }
 }

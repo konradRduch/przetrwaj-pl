@@ -5,6 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { MapMarkersService } from '../services/map-markers.service';
 import { MapBoundsService } from '../services/map-bounds.service';
 
+export interface LocationDB {
+  id: number,
+  address: string,
+  latitude: number,
+  longitude: number
+}
+
 @Component({
   selector: 'app-incident-add-form',
   standalone: true,
@@ -19,6 +26,7 @@ export class IncidentAddFormComponent {
   incidentTitle: string = "";
   incidentDescription: string = "";
   incidentTypeName!: string;
+  locationToAdd!: LocationDB
 
   setLocation(lat: number, lng: number){
     this.latMarker = lat
@@ -36,30 +44,10 @@ export class IncidentAddFormComponent {
   }
 
   addIncident() {
-    let creationDate = new Date();
-    let expirationDate = new Date(creationDate);
-    expirationDate.setMonth(creationDate.getMonth() + 1);
-    const incident = {
-        title: this.incidentTitle,
-        description: this.incidentDescription,
-        incidentType: {
-          name: this.incidentTypeName,
-          description: "Type 1 description 1"
-        },
-        location: {
-          address: "Address 1",
-          latitude: this.latMarker,
-          longitude: this.lngMarker
-        },
-        creationDate: creationDate,
-        expirationDate: expirationDate,
-        dangerLevel: 10,
-        confirmations: 0,
-        rejections: 0
-      };
-      this.mapMarkerService.clearMarker()
-      this.incidentService.addIncident(incident)
-      let bounds = this.mapBoundsService.getBounds()
-      this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)
+    this.mapMarkerService.clearMarker()
+    this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription)
+    let bounds = this.mapBoundsService.getBounds()
+    this.incidentService.fetchIncidentsByLocation(bounds.north, bounds.south, bounds.east, bounds.west)
+    //this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)
     }    
 }
