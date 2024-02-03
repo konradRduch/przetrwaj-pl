@@ -24,7 +24,7 @@ export class IncidentsListComponent {
       this.area = bounds;
       //console.log(this.area);
       this.incidentService.fetchIncidentsByLocation(this.area.north, this.area.south, this.area.east, this.area.west)
-      this.incidents = this.incidentService.getAllIncidents();
+      this.incidents = this.incidentService.getIncidentsFromArea(this.area.north, this.area.south, this.area.east, this.area.west);
     });
   }
 }

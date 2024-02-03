@@ -4,6 +4,7 @@ import { IncidentsService } from '../services/incidents.service';
 import { FormsModule } from '@angular/forms';
 import { MapMarkersService } from '../services/map-markers.service';
 import { MapBoundsService } from '../services/map-bounds.service';
+import { CommonModule } from '@angular/common';
 
 export interface LocationDB {
   id: number,
@@ -15,7 +16,7 @@ export interface LocationDB {
 @Component({
   selector: 'app-incident-add-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './incident-add-form.component.html',
   styleUrl: './incident-add-form.component.css'
 })
@@ -27,6 +28,9 @@ export class IncidentAddFormComponent {
   incidentDescription: string = "";
   incidentTypeName!: string;
   locationToAdd!: LocationDB
+
+  incidentTypeIndex: any;
+  incidentTypeNames!: any[]
 
   setLocation(lat: number, lng: number){
     this.latMarker = lat
@@ -40,12 +44,13 @@ export class IncidentAddFormComponent {
   ngOnInit() {
     this.locationService.currentLocation.subscribe(location => {
       this.setLocation(location.lat, location.lng);
+      this.incidentTypeNames = this.incidentService.getIncidentTypeNames()
     });
   }
 
   addIncident() {
     this.mapMarkerService.clearMarker()
-    this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription)
+    this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription, Number(this.incidentTypeIndex) + 1)
     let bounds = this.mapBoundsService.getBounds()
     this.incidentService.fetchIncidentsByLocation(bounds.north, bounds.south, bounds.east, bounds.west)
     //this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)

@@ -8,6 +8,8 @@ import { MapBoundsService } from './map-bounds.service';
   providedIn: 'root'
 })
 export class IncidentsService {
+  incidentsType: any[] = []
+
   private _incidents: Incident[] = [];
   incidents = new BehaviorSubject<Incident[]>(this._incidents);
 
@@ -16,13 +18,14 @@ export class IncidentsService {
   onInit() {
     let bounds = this.mapBoundsService.getBounds()
     this.fetchIncidentsByLocation(bounds.north, bounds.south, bounds.east, bounds.west)
+    this.getIncidentsTypes()
   }
 
-  addIncident(lat: number, lng: number, locationToAdd: any, incidentDescription: any) {
+  addIncident(lat: number, lng: number, locationToAdd: any, incidentDescription: any, incidentTypeIndex: number) {
     this.http.post<any>('/api/v1/location', {
-      'address': "sinadal",
-      'longitude': lng,
-      'latitude': lat
+      address: "sinadal",
+      longitude: lng,
+      latitude: lat
     }).subscribe(resp => {
       locationToAdd = {
         id: resp.id,
@@ -32,7 +35,7 @@ export class IncidentsService {
       };
       this.http.post<any>('/api/v1/report', {
         locationId: locationToAdd.id, 
-        reportTypeID: "1", 
+        reportTypeID: incidentTypeIndex, 
         threatDegree: "999",
         description: incidentDescription
       }).subscribe(resp => {
@@ -59,6 +62,27 @@ export class IncidentsService {
   getIncidents() {
     return this.incidents.asObservable();
   }
+
+  getIncidentsTypes() {
+    this.http.get<any[]>('/api/v1/reportType', {}).subscribe(data => {
+      const types : any[] = [];
+      for (let report in data) {
+        types.push({
+          "typeName": data[report].typeName
+        });
+      }
+      this.incidentsType.push(types);
+    });
+  }
+
+  getIncidentTypeNames(): any[] {
+   let typeNames: any[] = [];
+    for (let i = 0; i < this.incidentsType[0].length; i++) {
+        typeNames.push(this.incidentsType.map(t => t[i].typeName));
+    }
+    return typeNames;
+  }
+
 
   getIncident(index: number) {
     return this.incidents.asObservable().subscribe(incidents => incidents[index]);
@@ -109,7 +133,12 @@ export class IncidentsService {
     });
   }
 
-  getAllIncidents() {
-    return this._incidents
+  getIncidentsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
+    return this._incidents.filter(incident => {
+      return incident.location.latitude < northBound &&
+        incident.location.latitude > southBound &&
+        incident.location.longitude < eastBound &&
+        incident.location.longitude > westBound
+    });
   }
 }

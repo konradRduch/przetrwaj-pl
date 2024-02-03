@@ -15,9 +15,9 @@
     <br>
     <b>Incident type</b>
     <br>
-    <select [(ngModel)]="incidentTypeName"
-            name="incidentTypeName">
-        <option value="FIRE">Fire</option>
+    <select [(ngModel)]="incidentTypeIndex" name="incidentTypeIndex">
+        <option *ngFor="let it of incidentTypeNames; index as i"
+            [value]="i">{{ it }}</option>
     </select>
     <br>
     <b>Location</b>
