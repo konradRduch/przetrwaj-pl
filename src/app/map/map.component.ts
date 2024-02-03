@@ -70,7 +70,6 @@ export class MapComponent {
 
     this.incidentsService.fetchIncidentsByLocation(northBound, southBound, eastBound, westBound);
     this.resourcesService.fetchResourcePointsByLocation(northBound, southBound, eastBound, westBound);
-    // TODO: get incidents/resources from database
     this.boundService.setBounds(mapBounds.getNorthEast().lat(), mapBounds.getSouthWest().lat(), mapBounds.getNorthEast().lng(), mapBounds.getSouthWest().lng());
   }
 
