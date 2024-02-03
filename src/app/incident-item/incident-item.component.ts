@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Incident } from '../models/incident';
 import { CommonModule } from '@angular/common';
+import { GlobalVariablesService } from '../services/global-variables.service';
 
 @Component({
   selector: 'app-incident-item',
@@ -13,4 +14,6 @@ import { CommonModule } from '@angular/common';
 })
 export class IncidentItemComponent {
   @Input() incident?: Incident;
+
+  constructor(public globalVariablesService: GlobalVariablesService) { }
 }
