@@ -24,9 +24,11 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
 
-    signup(email: string, password: string) {
+    signup(firstName: string, lastName: string, email: string, password: string) {
         return this.http.post<AuthResponseData>('/api/v1/auth/register',
             {
+                firstName: firstName,
+                lastName: lastName,
                 email: email,
                 password: password,
                 returnSecureToken: true

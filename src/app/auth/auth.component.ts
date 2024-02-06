@@ -23,22 +23,24 @@ export class AuthComponent {
         if (!form.valid) {
             return;
         }
-        console.log(form.value);
-        const emial = form.value.email;
+        // console.log(form.value);
+        const firstName = form.value.firstName;
+        const lastName = form.value.lastName;
+        const email = form.value.email;
         const password = form.value.password;
 
         let authObs: Observable<AuthResponseData>;
 
         this.isLoading = true;
         if (this.isLoginMode) {
-            authObs = this.authService.login(emial, password);
+            authObs = this.authService.login(email, password);
         } else {
-            authObs = this.authService.signup(emial, password);
+            authObs = this.authService.signup(firstName, lastName, email, password);
         }
 
         authObs.subscribe(
             resData => {
-                console.log(resData);
+                // console.log(resData);
                 this.isLoading = false;
                 this.router.navigate(['/main-view']);
             },
