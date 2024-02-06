@@ -23,7 +23,7 @@ export class IncidentsListComponent {
     this.area = mapBoundsService.currentMapBounds.subscribe(bounds => {
       this.area = bounds;
       //console.log(this.area);
-      this.incidentService.fetchIncidentsByLocation(this.area.north, this.area.south, this.area.east, this.area.west)
+      this.incidentService.fetchIncidentsByLocation()
       this.incidents = this.incidentService.getIncidentsFromArea(this.area.north, this.area.south, this.area.east, this.area.west);
     });
   }

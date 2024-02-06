@@ -68,8 +68,8 @@ export class MapComponent {
     let eastBound = horizontalCenter + fetchHorizontalDistance;
     let westBound = horizontalCenter - fetchHorizontalDistance;
 
-    this.incidentsService.fetchIncidentsByLocation(northBound, southBound, eastBound, westBound);
-    this.resourcesService.fetchResourcePointsByLocation(northBound, southBound, eastBound, westBound);
+    this.incidentsService.fetchIncidentsByLocation();
+    this.resourcesService.fetchResourcePointsByLocation();
     this.boundService.setBounds(mapBounds.getNorthEast().lat(), mapBounds.getSouthWest().lat(), mapBounds.getNorthEast().lng(), mapBounds.getSouthWest().lng());
   }
 

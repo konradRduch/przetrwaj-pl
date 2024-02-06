@@ -32,14 +32,14 @@ export class IncidentAddFormComponent {
   incidentTypeIndex: any;
   incidentTypeNames!: any[]
 
-  setLocation(lat: number, lng: number){
+  setLocation(lat: number, lng: number) {
     this.latMarker = lat
     this.lngMarker = lng
   }
 
   constructor(private locationService: LocationService, private incidentService: IncidentsService,
-              private mapMarkerService: MapMarkersService, private mapBoundsService: MapBoundsService) {
-   }
+    private mapMarkerService: MapMarkersService, private mapBoundsService: MapBoundsService) {
+  }
 
   ngOnInit() {
     this.locationService.currentLocation.subscribe(location => {
@@ -52,7 +52,7 @@ export class IncidentAddFormComponent {
     this.mapMarkerService.clearMarker()
     this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription, Number(this.incidentTypeIndex) + 1)
     let bounds = this.mapBoundsService.getBounds()
-    this.incidentService.fetchIncidentsByLocation(bounds.north, bounds.south, bounds.east, bounds.west)
+    this.incidentService.fetchIncidentsByLocation()
     //this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)
-    }    
+  }
 }

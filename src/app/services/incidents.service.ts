@@ -17,7 +17,7 @@ export class IncidentsService {
 
   onInit() {
     let bounds = this.mapBoundsService.getBounds()
-    this.fetchIncidentsByLocation(bounds.north, bounds.south, bounds.east, bounds.west)
+    this.fetchIncidentsByLocation()
     this.getIncidentsTypes()
   }
 
@@ -34,8 +34,8 @@ export class IncidentsService {
         longitude: resp.longitude
       };
       this.http.post<any>('/api/v1/report', {
-        locationId: locationToAdd.id, 
-        reportTypeID: incidentTypeIndex, 
+        locationId: locationToAdd.id,
+        reportTypeID: incidentTypeIndex,
         threatDegree: "999",
         description: incidentDescription
       }).subscribe(resp => {
@@ -65,7 +65,7 @@ export class IncidentsService {
 
   getIncidentsTypes() {
     this.http.get<any[]>('/api/v1/reportType', {}).subscribe(data => {
-      const types : any[] = [];
+      const types: any[] = [];
       for (let report in data) {
         types.push({
           "typeName": data[report].typeName
@@ -76,9 +76,9 @@ export class IncidentsService {
   }
 
   getIncidentTypeNames(): any[] {
-   let typeNames: any[] = [];
+    let typeNames: any[] = [];
     for (let i = 0; i < this.incidentsType[0].length; i++) {
-        typeNames.push(this.incidentsType.map(t => t[i].typeName));
+      typeNames.push(this.incidentsType.map(t => t[i].typeName));
     }
     return typeNames;
   }
@@ -96,10 +96,7 @@ export class IncidentsService {
     return this.incidents.asObservable().subscribe(incidents => incidents.indexOf(incident));
   }
 
-  // function has the same code as function belowe, but it will be used to fetch incidents from database instead of filtering so the code will be different
-  // current implementation is just a placeholder for testing
-  fetchIncidentsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
-    // TODO: get incidents from database instead of filtering
+  fetchIncidentsByLocation() {
     this.http.post<any[]>('/api/v1/report/getRepsByLoc',
       {
         latitudeLowerBoundry: this.mapBoundsService.getBounds().south,
@@ -109,7 +106,7 @@ export class IncidentsService {
       }
     ).subscribe(data => {
       this._incidents = data.map(report => {
-        console.log(report);
+        // console.log(report);
         return {
           title: "title",
           description: report.description,

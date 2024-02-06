@@ -3,6 +3,8 @@ import { ResourcePoint } from '../models/resourcePoint';
 import { Resource } from '../models/resource';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { MapBoundsService } from './map-bounds.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class ResourcesService {
   private _resourcesPoints: ResourcePoint[] = [];
   resources = new BehaviorSubject<ResourcePoint[]>(this._resourcesPoints);
 
-  constructor() { this.onInit(); }
+  constructor(private http: HttpClient, private mapBoundService: MapBoundsService) { this.onInit(); }
 
   onInit() {
     this._resourcesPoints = [
@@ -135,16 +137,30 @@ export class ResourcesService {
     return this._resourcesPoints.indexOf(resourcePoint);
   }
 
-  // function has the same code as function belowe, but it will be used to fetch incidents from database instead of filtering so the code will be different
-  // current implementation is just a placeholder for testing
-  fetchResourcePointsByLocation(northBound: number, southBound: number, eastBound: number, westBound: number) {
-    // TODO: get incidents/resources from database instead of filtering
-    this.resources.next(this._resourcesPoints.filter(resourcePoint => {
-      return resourcePoint.location.latitude < northBound &&
-        resourcePoint.location.latitude > southBound &&
-        resourcePoint.location.longitude < eastBound &&
-        resourcePoint.location.longitude > westBound
-    }));
+
+  fetchResourcePointsByLocation() {
+    this.http.post<any[]>('/api/v1/resourcePoint/getResByLoc',
+      {
+        latitudeLowerBoundry: this.mapBoundService.getBounds().south,
+        latitudeUpperBoundry: this.mapBoundService.getBounds().north,
+        longitudeLowerBoundry: this.mapBoundService.getBounds().west,
+        longitudeUpperBoundry: this.mapBoundService.getBounds().east
+      }
+    ).subscribe(data => {
+      console.log(data);
+      this._resourcesPoints = data.map(resourcePoint => {
+        return {
+          title: resourcePoint.name,
+          location: {
+            address: resourcePoint.location.address,
+            latitude: resourcePoint.location.latitude,
+            longitude: resourcePoint.location.longitude
+          },
+          resources: resourcePoint.resources
+        }
+      });
+      this.resources.next(this._resourcesPoints);
+    });
   }
 
   getResourcePointsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
