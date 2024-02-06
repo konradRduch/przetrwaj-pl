@@ -9,7 +9,8 @@
                     class="btn-close btn-close-dark btn-sm"
                     data-bs-dismiss="alert"
                     style="font-size: x-small; margin-right: 5px;"
-                    (click)="removeResource(resource)">
+                    (click)="removeResource(resource)"
+                    *ngIf="this.globalVariablesService.userIsModerator">
                 </button>
                 <b>{{resource.resourceType.name}}</b>
                 <br>

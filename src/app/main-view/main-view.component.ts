@@ -7,6 +7,7 @@ import { ResourceAddFormComponent } from '../resource-add-form/resource-add-form
 import { MapMarkersService } from '../services/map-markers.service';
 import { CommonModule } from '@angular/common';
 import { ResourcePointAddFormComponent } from '../resource-point-add-form/resource-point-add-form.component';
+import { GlobalVariablesService } from '../services/global-variables.service';
 
 @Component({
   selector: 'app-main-view',
@@ -27,7 +28,7 @@ export class MainViewComponent {
   public columnHeight: any;
   public columnWidth: any;
 
-  constructor(public mapMarkerService: MapMarkersService) {
+  constructor(public mapMarkerService: MapMarkersService, public globalVariablesService: GlobalVariablesService) {
     this.columnHeight = window.innerHeight - 55;
   }
 

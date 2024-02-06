@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class GlobalVariablesService {
   showAddress: boolean = false;
   userIsModerator: boolean = false;
+  userFirstName: string = '';
 
   constructor() { }
 }

@@ -4,7 +4,8 @@
             [style.width.px]="columnWidth"
             style="overflow: auto;">
             <app-incident-add-form
-                *ngIf="(this.mapMarkerService.addedMarker.length!=0)"></app-incident-add-form>
+                *ngIf="(this.mapMarkerService.addedMarker.length!=0)">
+            </app-incident-add-form>
             <!-- there should be ngIf and show component only when needed -->
             <app-incidents-list></app-incidents-list>
         </div>
@@ -16,8 +17,10 @@
             style="overflow: auto;">
             <!-- there should be ngIf and show component only when needed and only for moderator -->
             <app-resource-point-add-form
-                *ngIf="(this.mapMarkerService.addedMarker.length!=0)"></app-resource-point-add-form>
-            <app-resource-add-form></app-resource-add-form>
+                *ngIf="(this.mapMarkerService.addedMarker.length!=0) && (this.globalVariablesService.userIsModerator)">
+            </app-resource-point-add-form>
+            <app-resource-add-form
+                *ngIf="this.globalVariablesService.userIsModerator"></app-resource-add-form>
             <app-resources-list></app-resources-list>
         </div>
     </div>

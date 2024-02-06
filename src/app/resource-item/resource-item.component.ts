@@ -3,6 +3,7 @@ import { ResourcePoint } from '../models/resourcePoint';
 import { CommonModule } from '@angular/common';
 import { ResourcesService } from '../services/resources.service';
 import { Resource } from '../models/resource';
+import { GlobalVariablesService } from '../services/global-variables.service';
 
 @Component({
   selector: 'app-resource-item',
@@ -16,7 +17,7 @@ import { Resource } from '../models/resource';
 export class ResourceItemComponent {
   @Input() resourcePoint?: ResourcePoint;
 
-  constructor(private resourceService: ResourcesService) { }
+  constructor(private resourceService: ResourcesService, public globalVariablesService: GlobalVariablesService) { }
 
   removeResource(resource: Resource) {
     this.resourceService.removeResourceFromPoint(resource, this.resourceService.getResourcePointIndex(this.resourcePoint!));
