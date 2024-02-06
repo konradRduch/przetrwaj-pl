@@ -5,11 +5,13 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MapBoundsService } from './map-bounds.service';
+import { ResourceType } from '../models/resourceType';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourcesService {
+  resourcesTypes: ResourceType[] = []
 
   private _resourcesPoints: ResourcePoint[] = [];
   resources = new BehaviorSubject<ResourcePoint[]>(this._resourcesPoints);
@@ -17,60 +19,20 @@ export class ResourcesService {
   constructor(private http: HttpClient, private mapBoundService: MapBoundsService) { this.onInit(); }
 
   onInit() {
-    this._resourcesPoints = [
-      {
-        location: { address: "address 1", latitude: 50.288541376422316, longitude: 18.677392396155188 },
-        title: "Resources Point 1",
-        resources: [{
-          resourceType: { name: "Resource 1", description: "description 1" },
-          quantity: 1,
-          unit: "unit 1",
-        },
-        {
-          resourceType: { name: "Resource 2", description: "description 2" },
-          quantity: 2,
-          unit: "unit 2",
-        },
-        {
-          resourceType: { name: "Resource 3", description: "description 3" },
-          quantity: 3,
-          unit: "unit 3",
-        }]
-      },
-      {
-        location: { address: "address 2", latitude: 50.28868249257966, longitude: 18.67758005929157 },
-        title: "Resources Point 2",
-        resources: [{
-          resourceType: { name: "Resource 12", description: "description 1" },
-          quantity: 1,
-          unit: "unit 1",
-        },
-        {
-          resourceType: { name: "Resource 22", description: "description 2" },
-          quantity: 2,
-          unit: "unit 2",
-        },
-        {
-          resourceType: { name: "Resource 32", description: "description 3" },
-          quantity: 3,
-          unit: "unit 3",
-        }]
-      },
-      {
-        location: { address: "address 3", latitude: 50.28870421262463, longitude: 18.677265243529188 },
-        title: "Resources Point 3",
-        resources: [{
-          resourceType: { name: "Resource 13", description: "description 1" },
-          quantity: 1,
-          unit: "unit 1",
-        },
-        {
-          resourceType: { name: "Resource 23", description: "description 2" },
-          quantity: 2,
-          unit: "unit 2",
-        }]
-      }
-    ];
+    this.fetchResourcePointsByLocation();
+    this.getResourcesTypes();
+  }
+
+  getResourcesTypes() {
+    this.http.get<any[]>('/api/v1/resourcePoint/getResType').subscribe(data => {
+      this.resourcesTypes = data.map(resourceType => {
+        return {
+          name: resourceType.name,
+          description: resourceType.description,
+          unit: resourceType.unit
+        }
+      });
+    });
   }
 
   addResourceToPoint(resource: Resource, index: number) {
@@ -147,7 +109,7 @@ export class ResourcesService {
         longitudeUpperBoundry: this.mapBoundService.getBounds().east
       }
     ).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this._resourcesPoints = data.map(resourcePoint => {
         return {
           title: resourcePoint.name,

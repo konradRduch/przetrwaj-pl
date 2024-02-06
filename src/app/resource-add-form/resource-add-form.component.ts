@@ -29,9 +29,12 @@ export class ResourceAddFormComponent {
 
   addResourceToPoint() {
     this.resources.push({
-      resourceType: { name: this.resourceTypeName, description: "description" },
+      resourceType: {
+        name: this.resourceTypeName,
+        description: "description",
+        unit: "unit",
+      },
       quantity: this.resourceQuantity,
-      unit: "unit",
     });
   }
 

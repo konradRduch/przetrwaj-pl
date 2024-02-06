@@ -16,7 +16,6 @@ export class IncidentsService {
   constructor(private http: HttpClient, private mapBoundsService: MapBoundsService) { this.onInit(); }
 
   onInit() {
-    let bounds = this.mapBoundsService.getBounds()
     this.fetchIncidentsByLocation()
     this.getIncidentsTypes()
   }
