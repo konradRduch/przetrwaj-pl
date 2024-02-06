@@ -3,14 +3,9 @@
         <div class="navbar-brand h2 justify-content-left">Przetrwaj.pl</div>
         <!-- add username and if to show this only after succesfully login -->
         <div
-            class="navbar-collapse collapse flex-grow-0 justify-content-center"
-            style="color: white;"><b>Welcome
-                {{this.globalVariablesService.userFirstName}}</b>
-            <div
-                *ngIf="this.globalVariablesService.userIsModerator"
-                class="headerTextBox"
-                style="color: black; margin-left: 10px;"><b>MODERATOR</b>
-            </div>
+            *ngIf="this.globalVariablesService.userIsModerator"
+            class="navbar-collapse collapse flex-grow-0 justify-content-center headerTextBox"
+            style="color: black; margin-left: 10px;"><b>MODERATOR</b>
         </div>
         <!-- there should be ngIf in moderator div -->
         <div class="nav-item dropdown">

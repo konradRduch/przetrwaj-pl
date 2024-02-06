@@ -60,6 +60,28 @@ export class ResourcesService {
     }
   }
 
+  addResourcesPoint(resourcePoint: ResourcePoint) {
+    this.http.post<any>('/api/v1/location', {
+      address: "sinadal",
+      longitude: resourcePoint.location.longitude,
+      latitude: resourcePoint.location.latitude
+    }).subscribe(resp => {
+      let locationToAdd = {
+        id: resp.id,
+        address: resp.address,
+        latitude: resp.latitude,
+        longitude: resp.longitude
+      };
+      this.http.post<any>('/api/v1/resourcePoint', {
+        pointName: resourcePoint.title,
+        locationId: locationToAdd.id,
+        resources: resourcePoint.resources
+      }).subscribe(resp => {
+        console.log(resp);
+      });
+    });
+  }
+
   removeResourceFromPoint(resource: Resource, index: number) {
     this._resourcesPoints[index].resources = this._resourcesPoints[index].resources.filter(i => i !== resource);
     this.resources.next(this._resourcesPoints);
@@ -88,11 +110,6 @@ export class ResourcesService {
 
   getResourcePointTitles(): string[] {
     return this._resourcesPoints.map(rp => rp.title);
-  }
-
-  addResourcesPoint(resourcePoint: ResourcePoint) {
-    this._resourcesPoints.push(resourcePoint);
-    this.resources.next(this._resourcesPoints);
   }
 
   getResourcePointIndex(resourcePoint: ResourcePoint) {

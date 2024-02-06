@@ -34,10 +34,11 @@ export class ResourcePointAddFormComponent {
 
   addResourcePoint() {
     const ResourcePoint = {
-      location: { address:"address 1", latitude: this.latMarker, longitude: this.lngMarker },
+      location: { address: "address", latitude: this.latMarker, longitude: this.lngMarker },
       title: this.resourcePointTitle,
       resources: []
     };
+    console.log(ResourcePoint);
     this.mapMarkerService.clearMarker();
     this.resourcesService.addResourcesPoint(ResourcePoint);
     let bounds = this.mapBoundsService.getBounds()

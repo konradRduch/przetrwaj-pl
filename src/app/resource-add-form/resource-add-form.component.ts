@@ -20,7 +20,7 @@ export class ResourceAddFormComponent {
   resourceQuantity: number = 1;
   showForm = false
 
-  constructor(private locationService: LocationService, private resourcesService: ResourcesService) {
+  constructor(private locationService: LocationService, public resourcesService: ResourcesService) {
     this.resourcesService.resources.subscribe(() => {
       this.resourcePointTitles = this.resourcesService.getResourcePointTitles();
     });

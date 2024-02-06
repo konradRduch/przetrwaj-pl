@@ -20,8 +20,10 @@
                     <select [(ngModel)]="resource.resourceType.name"
                         name="resourceType{{i}}"
                         class="type-select">
-                        <option value="WATER">Water</option>
-                        <!-- add more options as needed -->
+                        <option
+                            *ngFor="let rt of this.resourcesService.resourcesTypes"
+                            [value]="rt.name">{{ rt.name }}
+                            [{{rt.unit}}]</option>
                     </select>
                 </td>
             </tr>
