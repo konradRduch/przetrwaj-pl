@@ -87,7 +87,7 @@ export class ResourcesService {
         resources: resourcePoint.resources
       }).subscribe(resp => {
         // console.log(resp);
-       this.fetchResourcePointsByLocation();
+        this.fetchResourcePointsByLocation();
       });
     });
   }
@@ -128,27 +128,29 @@ export class ResourcesService {
 
 
   fetchResourcePointsByLocation() {
-    this.http.post<any[]>('/api/v1/resourcePoint/getResByLoc',
-      {
-        latitudeLowerBoundry: this.mapBoundService.getBounds().south,
-        latitudeUpperBoundry: this.mapBoundService.getBounds().north,
-        longitudeLowerBoundry: this.mapBoundService.getBounds().west,
-        longitudeUpperBoundry: this.mapBoundService.getBounds().east
-      }
-    ).subscribe(data => {
-      // console.log(data);
-      this._resourcesPoints = data.map(resourcePoint => {
-        return {
-          title: resourcePoint.name,
-          location: {
-            address: resourcePoint.location.address,
-            latitude: resourcePoint.location.latitude,
-            longitude: resourcePoint.location.longitude
-          },
-          resources: resourcePoint.resources
+    this.mapBoundService.currentMapBounds.subscribe(bounds => {
+      this.http.post<any[]>('/api/v1/resourcePoint/getResByLoc',
+        {
+          latitudeLowerBoundry: bounds.south,
+          latitudeUpperBoundry: bounds.north,
+          longitudeLowerBoundry: bounds.west,
+          longitudeUpperBoundry: bounds.east
         }
+      ).subscribe(data => {
+        // console.log(data);
+        this._resourcesPoints = data.map(resourcePoint => {
+          return {
+            title: resourcePoint.name,
+            location: {
+              address: resourcePoint.location.address,
+              latitude: resourcePoint.location.latitude,
+              longitude: resourcePoint.location.longitude
+            },
+            resources: resourcePoint.resources
+          }
+        });
+        this.resources.next(this._resourcesPoints);
       });
-      this.resources.next(this._resourcesPoints);
     });
   }
 }

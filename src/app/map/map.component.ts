@@ -55,13 +55,10 @@ export class MapComponent {
     this.getMapCoordinates();
   }
 
-  // function can be used to get map bounds coordinates and filter incidents/resources
   getMapCoordinates() {
-    // bound are adjusted to fetch 3 times more data than visible on screen, because of zooming
-    var mapBounds = this.map.getBounds()!;
+    var mapBounds = this.map.getBounds();
+    if (mapBounds === null) return;
 
-    this.incidentsService.fetchIncidentsByLocation();
-    this.resourcesService.fetchResourcePointsByLocation();
     this.boundService.setBounds(mapBounds.getNorthEast().lat(), mapBounds.getSouthWest().lat(), mapBounds.getNorthEast().lng(), mapBounds.getSouthWest().lng());
   }
 
