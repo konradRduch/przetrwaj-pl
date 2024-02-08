@@ -13,9 +13,10 @@ import { Resource } from '../models/resource';
   styleUrl: './resource-add-form.component.css'
 })
 export class ResourceAddFormComponent {
-  resources: Resource[] = [];
-  resourcesPointIndex!: number;
-  resourceTypeName: string = "typeName";
+  resources: any[] = [];
+  resourcesPointIndex: number = 0;
+  resourceTypeId: number = 1;
+  resourceTypeUnit!: string;
   resourcePointTitles!: string[];
   resourceQuantity: number = 1;
   showForm = false
@@ -30,17 +31,18 @@ export class ResourceAddFormComponent {
   addResourceToPoint() {
     this.resources.push({
       resourceType: {
-        name: this.resourceTypeName,
-        description: "description",
-        unit: "unit",
+        id: this.resourceTypeId,
+        name: "typeNameUselessHere",
+        description: "descriptionUseless",
+        unit: this.resourceTypeUnit,
       },
       quantity: this.resourceQuantity,
     });
   }
 
   addResourcesToPoint() {
-    this.resourcesService.addResourcesToPoint(this.resources, this.resourcesPointIndex)
-    this.resources = []
-    this.addResourceToPoint();
+    //console.log(this.resources)
+    this.resourcesService.addResourcesToPoint(this.resources, Number(this.resourcesPointIndex) + 1)
+    this.resources = []    
   }
 }

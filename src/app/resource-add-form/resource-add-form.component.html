@@ -17,12 +17,12 @@
             <tr>
                 <td>Resource type</td>
                 <td>
-                    <select [(ngModel)]="resource.resourceType.name"
+                    <select [(ngModel)]="resource.resourceType.id"
                         name="resourceType{{i}}"
                         class="type-select">
                         <option
                             *ngFor="let rt of this.resourcesService.resourcesTypes"
-                            [value]="rt.name">{{ rt.name }}
+                            [value]="rt.id">{{ rt.name }}
                             [{{rt.unit}}]</option>
                     </select>
                 </td>

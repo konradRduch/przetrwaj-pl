@@ -27,36 +27,45 @@ export class ResourcesService {
     this.http.get<any[]>('/api/v1/resourcePoint/getResType').subscribe(data => {
       this.resourcesTypes = data.map(resourceType => {
         return {
+          id: resourceType.id,
           name: resourceType.name,
           description: resourceType.description,
           unit: resourceType.unit
         }
       });
+      //console.log(this.resourcesTypes)
     });
   }
 
-  addResourceToPoint(resource: Resource, index: number) {
-    let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name);
+  addResourceToPoint(resource: any, index: number) {
+    let existingResource = this._resourcesPoints[index - 1].resources.find(r => r.resourceType.id == resource.resourceType.id);
+    //console.log(this._resourcesPoints)
+    //console.log(existingResource, "tu jest id zasobu")
 
     if (existingResource) {
-      existingResource.quantity += resource.quantity;
+      //console.log(Number(resource.resourceType.id), index, resource.quantity, "ifadd")
+      this.http.post<any>('/api/v1/resourcePoint/changeResQuantity', {
+        resourceId: existingResource.resourceId,
+        quantityDelta: resource.quantity
+      }).subscribe(resp => {
+        //console.log("changed")
+      });
+
     } else {
-      this._resourcesPoints[index].resources.push(resource);
+      //console.log(resource.resourceType.id, index, resource.quantity, "elseadd")
+      this.http.post<any>('/api/v1/resourcePoint/addResource', {
+        resourceTypeId: resource.resourceType.id,
+        pointId: index,
+        quantity: resource.quantity
+      }).subscribe(resp => {
+        //console.log("added")
+      });
     }
   }
 
-  addResourcesToPoint(resources: Resource[], index: number) {
+  addResourcesToPoint(resources: any[], index: number) {
     for (let resource of resources) {
-      let existingResource = this._resourcesPoints[index].resources.find(r => r.resourceType.name === resource.resourceType.name);
-
-      if (existingResource) {
-        existingResource.quantity += resource.quantity;
-        if (existingResource.quantity == 0) {
-          this.removeResourceFromPoint(existingResource, index)
-        }
-      } else {
-        this._resourcesPoints[index].resources.push(resource);
-      }
+      this.addResourceToPoint(resource, index)
     }
   }
 
