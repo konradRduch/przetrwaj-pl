@@ -9,9 +9,9 @@
             <b>Resources Point</b>
             <br>
             <select [(ngModel)]="resourcesPointIndex"
-                name="resourcesPointIndex">
-                <option *ngFor="let rp of resourcePointTitles; index as i"
-                    [value]="i">{{ rp }}</option>
+                name="resourcesPointsex">
+                <option *ngFor="let rp of resourcePointTitles"
+                    [value]="rp.pointId">{{ rp.title }}</option>
             </select>
             <br>
             <span class="br"></span>

@@ -72,7 +72,7 @@ export class ResourcesService {
   }
 }
 
-  addResourcesPoint(resourcePoint: ResourcePoint) {
+  addResourcesPoint(resourcePoint: any) {
     this.http.post<any>('/api/v1/location', {
       address: resourcePoint.location.address,
       longitude: resourcePoint.location.longitude,
@@ -121,9 +121,9 @@ export class ResourcesService {
     return this.resources.asObservable();
   }
 
-  getResourcePointTitles(): string[] {
-    return this._resourcesPoints.map(rp => rp.title);
-  }
+ getResourcePointTitles(): any[] {
+  return this._resourcesPoints.map(rp => ({ title: rp.title, pointId: rp.pointId }));
+}
 
   getResourcePointIndex(resourcePoint: ResourcePoint) {
     return this._resourcesPoints.indexOf(resourcePoint);
@@ -146,6 +146,7 @@ export class ResourcesService {
         // console.log(data);
         this._resourcesPoints = data.map(resourcePoint => {
           return {
+            pointId: resourcePoint.id,
             title: resourcePoint.name,
             location: {
               address: resourcePoint.location.address,

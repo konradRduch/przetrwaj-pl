@@ -17,7 +17,7 @@ export class ResourceAddFormComponent {
   resourcesPointIndex: number = 0;
   resourceTypeId!: number;
   resourceTypeUnit!: string;
-  resourcePointTitles!: string[];
+  resourcePointTitles!: any[];
   resourceQuantity: number = 1;
   showForm = false
 
@@ -39,8 +39,8 @@ export class ResourceAddFormComponent {
 }
 
 addResourcesToPoint() {
-  //console.log(this.resources)
-  this.resourcesService.addResourcesToPoint(this.resources, Number(this.resourcesPointIndex) + 1)
+  //console.log(this.resources, this.resourcesPointIndex)
+  this.resourcesService.addResourcesToPoint(this.resources, this.resourcesPointIndex)
   this.resources = []   
   this.addResourceToPoint();   
   }
