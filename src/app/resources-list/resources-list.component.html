@@ -1,11 +1,11 @@
 <h5>Resources Points List</h5>
-<div *ngIf="(resourcePoints.length!=0)" class="resources-div">
+<div *ngIf="(resourcePoints.length!=0); else noResourcesPoints" class="resources-div">
     <div *ngFor="let resourcePoint of resourcePoints">
         <app-resource-item
             [resourcePoint]="resourcePoint"></app-resource-item>
         <hr>
     </div>
 </div>
-<div *ngElse>
-    <p>no resource points</p>
-</div>
+<ng-template #noResourcesPoints>
+    <p>no resources points</p>
+</ng-template>

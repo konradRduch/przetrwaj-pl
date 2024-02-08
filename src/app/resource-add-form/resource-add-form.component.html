@@ -1,50 +1,53 @@
-<h5
-    style="display: inline-block; vertical-align: baseline; margin-right: 5px;">Add
-    Resources</h5>
-<button class="btn btn-secondary btn-sm" style="font-size: x-small"
-    (click)="showForm = !showForm">▼</button>
-<div *ngIf="showForm">
-    <form class="resourceAddForm">
-        <b>Resources Point</b>
-        <br>
-        <select [(ngModel)]="resourcesPointIndex" name="resourcesPointIndex">
-            <option *ngFor="let rp of resourcePointTitles; index as i"
-                [value]="i">{{ rp }}</option>
-        </select>
-        <br>
-        <span class="br"></span>
-        <table *ngFor="let resource of resources; index as i">
-            <tr>
-                <td>Resource type</td>
-                <td>
-                    <select [(ngModel)]="resource.resourceType.id"
-                        name="resourceType{{i}}"
-                        class="type-select">
-                        <option
-                            *ngFor="let rt of this.resourcesService.resourcesTypes"
-                            [value]="rt.id">{{ rt.name }}
-                            [{{rt.unit}}]</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Quantity</td>
-                <td>
-                    <input [(ngModel)]="resource.quantity"
-                        name="resourceQuantity{{i}}" type="number"
-                        class="quantity-input">
-                </td>
-            </tr>
+<div *ngIf="this.resourcesService.getResourcesPoinsCount()!=0">
+    <h5
+        style="display: inline-block; vertical-align: baseline; margin-right: 5px;">Add
+        Resources</h5>
+    <button class="btn btn-secondary btn-sm" style="font-size: x-small"
+        (click)="showForm = !showForm">▼</button>
+    <div *ngIf="showForm">
+        <form class="resourceAddForm">
+            <b>Resources Point</b>
             <br>
-        </table>
-        <button class="btn btn-secondary btn-sm"
-            (click)="addResourceToPoint()">Add
-            another resource</button>
-        <br>
-        <span class="br"></span>
-        <button class="btn btn-secondary btn-sm"
-            (click)="addResourcesToPoint()">Add
-            resources to point</button>
-    </form>
+            <select [(ngModel)]="resourcesPointIndex"
+                name="resourcesPointIndex">
+                <option *ngFor="let rp of resourcePointTitles; index as i"
+                    [value]="i">{{ rp }}</option>
+            </select>
+            <br>
+            <span class="br"></span>
+            <table *ngFor="let resource of resources; index as i">
+                <tr>
+                    <td>Resource type</td>
+                    <td>
+                        <select [(ngModel)]="resource.resourceType.id"
+                            name="resourceType{{i}}"
+                            class="type-select">
+                            <option
+                                *ngFor="let rt of this.resourcesService.resourcesTypes"
+                                [value]="rt.id">{{ rt.name }}
+                                [{{rt.unit}}]</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td>
+                        <input [(ngModel)]="resource.quantity"
+                            name="resourceQuantity{{i}}" type="number"
+                            class="quantity-input">
+                    </td>
+                </tr>
+                <br>
+            </table>
+            <button class="btn btn-secondary btn-sm"
+                (click)="addResourceToPoint()">Add
+                another resource</button>
+            <br>
+            <span class="br"></span>
+            <button class="btn btn-secondary btn-sm"
+                (click)="addResourcesToPoint()">Add
+                resources to point</button>
+        </form>
+    </div>
+    <hr>
 </div>
-<hr>

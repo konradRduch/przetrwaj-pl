@@ -1,10 +1,10 @@
 <h5>Incidents List</h5>
-<div *ngIf="(incidents.length!=0)">
+<div *ngIf="(incidents.length!=0); else noIncidents">
     <div *ngFor="let incident of incidents">
         <app-incident-item [incident]="incident"></app-incident-item>
         <hr>
     </div>
 </div>
-<div *ngElse>
+<ng-template #noIncidents>
     <p>no incidents</p>
-</div>
+</ng-template>

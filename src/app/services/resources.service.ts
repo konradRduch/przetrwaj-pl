@@ -126,6 +126,9 @@ export class ResourcesService {
     return this._resourcesPoints.indexOf(resourcePoint);
   }
 
+  getResourcesPoinsCount() {
+    return this._resourcesPoints.length;
+  }
 
   fetchResourcePointsByLocation() {
     this.mapBoundService.currentMapBounds.subscribe(bounds => {
