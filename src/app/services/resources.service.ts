@@ -44,6 +44,7 @@ export class ResourcesService {
         resourceId: existingResource.resourceId,
         quantityDelta: resource[1]
       }).subscribe(resp => {
+        this.fetchResourcePointsByLocation();
       });
 
     } else {
@@ -52,6 +53,7 @@ export class ResourcesService {
         pointId: index,
         quantity: resource[1]
       }).subscribe(resp => {
+        this.fetchResourcePointsByLocation();
       });
     }
   }
@@ -67,10 +69,10 @@ export class ResourcesService {
         resourcesMap.set(resourceType, quantity);
       }
     }
-  for (let resource of resourcesMap) {
-    this.addResourceToPoint(resource, index)
+    for (let resource of resourcesMap) {
+      this.addResourceToPoint(resource, index)
+    }
   }
-}
 
   addResourcesPoint(resourcePoint: any) {
     this.http.post<any>('/api/v1/location', {
@@ -121,9 +123,9 @@ export class ResourcesService {
     return this.resources.asObservable();
   }
 
- getResourcePointTitles(): any[] {
-  return this._resourcesPoints.map(rp => ({ title: rp.title, pointId: rp.pointId }));
-}
+  getResourcePointTitles(): any[] {
+    return this._resourcesPoints.map(rp => ({ title: rp.title, pointId: rp.pointId }));
+  }
 
   getResourcePointIndex(resourcePoint: ResourcePoint) {
     return this._resourcesPoints.indexOf(resourcePoint);

@@ -36,12 +36,12 @@ export class ResourceAddFormComponent {
       },
       quantity: this.resourceQuantity,
     });
-}
+  }
 
-addResourcesToPoint() {
-  //console.log(this.resources, this.resourcesPointIndex)
-  this.resourcesService.addResourcesToPoint(this.resources, this.resourcesPointIndex)
-  this.resources = []   
-  this.addResourceToPoint();   
+  addResourcesToPoint() {
+    //console.log(this.resources, this.resourcesPointIndex)
+    this.resourcesService.addResourcesToPoint(this.resources, this.resourcesPointIndex)
+    this.resources = []
+    this.addResourceToPoint();
   }
 }
