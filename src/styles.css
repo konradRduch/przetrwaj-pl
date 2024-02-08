@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+.btn-sm {
+    font-size: smaller;
+    height: 21px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.br { 
+    display: block; 
+    margin-bottom: 0.7em; 
+} 

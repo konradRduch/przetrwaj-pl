@@ -12,7 +12,7 @@
                 [value]="i">{{ rp }}</option>
         </select>
         <br>
-        <br>
+        <span class="br"></span>
         <table *ngFor="let resource of resources; index as i">
             <tr>
                 <td>Resource type</td>
@@ -41,7 +41,7 @@
             (click)="addResourceToPoint()">Add
             another resource</button>
         <br>
-        <br>
+        <span class="br"></span>
         <button class="btn btn-secondary btn-sm"
             (click)="addResourcesToPoint()">Add
             resources to point</button>

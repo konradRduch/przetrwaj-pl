@@ -1,28 +1,32 @@
 <div *ngIf="incident !== undefined && incident !== null" class="incidents-div">
-    <h6><b>{{incident.title}}</b></h6>
-    <b>Description</b> <br> {{incident.description}} <br>
+    <h6 style="margin-bottom: 3px;"><b>{{incident.title}}</b></h6>
+    <button class="btn btn-outline-danger btn-sm">Remove incident</button> <br>
+    <b>Description</b> <br> <span style="overflow-wrap: normal;"> {{incident.description}} </span> <br>
     <b>Incident type</b> <br>
     {{incident.incidentType.name}} <br>
     {{incident.incidentType.description}} <br>
     <b>Address</b> <br>
-    <div style="background-color: red; opacity: 80%; color: white;"
+    <div
+        style="background-color: red; opacity: 80%; color: white; padding: 1px; border-radius: 3px;"
         *ngIf="this.globalVariablesService.showAddress">
         <!-- {{incident.location.address}}  -->
         ACTIVATE PREMIUM SUBSCRIPTION TO SEE ADDRESSES <br>
         it is only 9.99$ per month!
     </div>
     <div *ngIf="!this.globalVariablesService.showAddress">
-        <button class="btn btn-outline-secondary btn-sm" *ngIf="!this.globalVariablesService.showAddress"
-            (click)="this.globalVariablesService.showAddress=true">Show address</button>
+        <button class="btn btn-outline-secondary btn-sm"
+            *ngIf="!this.globalVariablesService.showAddress"
+            (click)="this.globalVariablesService.showAddress=true">Show
+            address</button>
     </div>
     <b>Location</b> <br>
     Lat: {{incident.location.latitude}} <br>
     Long: {{incident.location.longitude}} <br>
-    <b>Danger level:</b> {{incident.dangerLevel}} <br> <br>
+    <b>Danger level:</b> {{incident.dangerLevel}} <br> <span class="br"></span>
     <b>Created at:</b> <br>
     {{incident.creationDate | date: 'medium'}} <br>
     <b>Expires at:</b> <br>
-    {{incident.expirationDate| date: 'medium'}} <br> <br>
+    {{incident.expirationDate| date: 'medium'}} <br> <span class="br"></span>
     <div
         *ngIf="incident.incidentType.recommendedResources !== undefined 
         && incident.incidentType.recommendedResources !== null 
