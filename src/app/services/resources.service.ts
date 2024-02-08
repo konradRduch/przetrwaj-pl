@@ -38,36 +38,39 @@ export class ResourcesService {
   }
 
   addResourceToPoint(resource: any, index: number) {
-    let existingResource = this._resourcesPoints[index - 1].resources.find(r => r.resourceType.id == resource.resourceType.id);
-    //console.log(this._resourcesPoints)
-    //console.log(existingResource, "tu jest id zasobu")
-
+    let existingResource = this._resourcesPoints[index - 1].resources.find(r => r.resourceType.id == resource[0]);
     if (existingResource) {
-      //console.log(Number(resource.resourceType.id), index, resource.quantity, "ifadd")
       this.http.post<any>('/api/v1/resourcePoint/changeResQuantity', {
         resourceId: existingResource.resourceId,
-        quantityDelta: resource.quantity
+        quantityDelta: resource[1]
       }).subscribe(resp => {
-        //console.log("changed")
       });
 
     } else {
-      //console.log(resource.resourceType.id, index, resource.quantity, "elseadd")
       this.http.post<any>('/api/v1/resourcePoint/addResource', {
-        resourceTypeId: resource.resourceType.id,
+        resourceTypeId: resource[0],
         pointId: index,
-        quantity: resource.quantity
+        quantity: resource[1]
       }).subscribe(resp => {
-        //console.log("added")
       });
     }
   }
 
   addResourcesToPoint(resources: any[], index: number) {
+    const resourcesMap = new Map<string, number>();
     for (let resource of resources) {
-      this.addResourceToPoint(resource, index)
+      let resourceType = resource.resourceType.id
+      let quantity = resource.quantity
+      if (resourcesMap.has(resourceType)) {
+        resourcesMap.set(resourceType, resourcesMap.get(resourceType)! + quantity);
+      } else {
+        resourcesMap.set(resourceType, quantity);
+      }
     }
+  for (let resource of resourcesMap) {
+    this.addResourceToPoint(resource, index)
   }
+}
 
   addResourcesPoint(resourcePoint: ResourcePoint) {
     this.http.post<any>('/api/v1/location', {
