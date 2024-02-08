@@ -38,10 +38,8 @@ export class ResourcePointAddFormComponent {
       title: this.resourcePointTitle,
       resources: []
     };
-    console.log(ResourcePoint);
+    // console.log(ResourcePoint);
     this.mapMarkerService.clearMarker();
     this.resourcesService.addResourcesPoint(ResourcePoint);
-    let bounds = this.mapBoundsService.getBounds()
-    this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)
   }
 }

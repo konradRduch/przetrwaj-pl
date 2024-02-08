@@ -38,7 +38,8 @@ export class IncidentsService {
         threatDegree: "999",
         description: incidentDescription
       }).subscribe(resp => {
-        console.log(resp);
+        // console.log(resp);
+        this.fetchIncidentsByLocation();
       });
     });
   }

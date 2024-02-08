@@ -62,7 +62,7 @@ export class ResourcesService {
 
   addResourcesPoint(resourcePoint: ResourcePoint) {
     this.http.post<any>('/api/v1/location', {
-      address: "sinadal",
+      address: resourcePoint.location.address,
       longitude: resourcePoint.location.longitude,
       latitude: resourcePoint.location.latitude
     }).subscribe(resp => {
@@ -77,7 +77,8 @@ export class ResourcesService {
         locationId: locationToAdd.id,
         resources: resourcePoint.resources
       }).subscribe(resp => {
-        console.log(resp);
+        // console.log(resp);
+       this.fetchResourcePointsByLocation();
       });
     });
   }
@@ -139,15 +140,6 @@ export class ResourcesService {
         }
       });
       this.resources.next(this._resourcesPoints);
-    });
-  }
-
-  getResourcePointsFromArea(northBound: number, southBound: number, eastBound: number, westBound: number) {
-    return this._resourcesPoints.filter(resourcePoint => {
-      return resourcePoint.location.latitude < northBound &&
-        resourcePoint.location.latitude > southBound &&
-        resourcePoint.location.longitude < eastBound &&
-        resourcePoint.location.longitude > westBound
     });
   }
 }

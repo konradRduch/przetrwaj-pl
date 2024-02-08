@@ -21,11 +21,9 @@ export class ResourcesListComponent {
   resourcePoints: ResourcePoint[] = [];
   area: any;
 
-  constructor(private resourceService: ResourcesService, private resourcesService: ResourcesService, private mapBoundsService: MapBoundsService) {
-    this.area = mapBoundsService.currentMapBounds.subscribe(bounds => {
-      this.area = bounds;
-      // console.log(this.area); 
-      this.resourcePoints = this.resourceService.getResourcePointsFromArea(this.area.north, this.area.south, this.area.east, this.area.west);
+  constructor(private resourcesService: ResourcesService) {
+    this.resourcesService.getResourcesPoints().subscribe((data: ResourcePoint[]) => {
+      this.resourcePoints = data;
     });
   }
 }

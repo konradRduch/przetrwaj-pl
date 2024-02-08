@@ -38,7 +38,7 @@ export class IncidentAddFormComponent {
   }
 
   constructor(private locationService: LocationService, private incidentService: IncidentsService,
-    private mapMarkerService: MapMarkersService, private mapBoundsService: MapBoundsService) {
+    private mapMarkerService: MapMarkersService) {
   }
 
   ngOnInit() {
@@ -51,8 +51,5 @@ export class IncidentAddFormComponent {
   addIncident() {
     this.mapMarkerService.clearMarker()
     this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription, Number(this.incidentTypeIndex) + 1)
-    let bounds = this.mapBoundsService.getBounds()
-    this.incidentService.fetchIncidentsByLocation()
-    //this.mapBoundsService.setBounds(bounds.north, bounds.south, bounds.east, bounds.west)
   }
 }

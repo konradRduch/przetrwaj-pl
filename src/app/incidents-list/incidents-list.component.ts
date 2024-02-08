@@ -19,12 +19,9 @@ export class IncidentsListComponent {
   incidents: Incident[] = [];
   area: any;
 
-  constructor(private incidentService: IncidentsService, private mapBoundsService: MapBoundsService) {
-    this.area = mapBoundsService.currentMapBounds.subscribe(bounds => {
-      this.area = bounds;
-      //console.log(this.area);
-      this.incidentService.fetchIncidentsByLocation()
-      this.incidents = this.incidentService.getIncidentsFromArea(this.area.north, this.area.south, this.area.east, this.area.west);
+  constructor(private incidentService: IncidentsService) {
+    this.incidentService.getIncidents().subscribe((data: Incident[]) => {
+      this.incidents = data;
     });
   }
 }
