@@ -137,15 +137,12 @@ export class ResourcesService {
 
   fetchResourcePointsByLocation() {
     this.mapBoundService.currentMapBounds.subscribe(bounds => {
-      this.http.post<any[]>('/api/v1/resourcePoint/getResByLoc',
-        {
-          latitudeLowerBoundry: bounds.south,
-          latitudeUpperBoundry: bounds.north,
-          longitudeLowerBoundry: bounds.west,
-          longitudeUpperBoundry: bounds.east
-        }
-      ).subscribe(data => {
-        // console.log(data);
+      this.http.post<any[]>('/api/v1/resourcePoint/getResByLoc', {
+        latitudeLowerBoundry: bounds.south,
+        latitudeUpperBoundry: bounds.north,
+        longitudeLowerBoundry: bounds.west,
+        longitudeUpperBoundry: bounds.east
+      }).subscribe(data => {
         this._resourcesPoints = data.map(resourcePoint => {
           return {
             pointId: resourcePoint.id,
@@ -155,8 +152,8 @@ export class ResourcesService {
               latitude: resourcePoint.location.latitude,
               longitude: resourcePoint.location.longitude
             },
-            resources: resourcePoint.resources
-          }
+            resources: resourcePoint.resources.sort((a: Resource, b: Resource) => a.resourceType.name.localeCompare(b.resourceType.name))
+          };
         });
         this.resources.next(this._resourcesPoints);
       });
