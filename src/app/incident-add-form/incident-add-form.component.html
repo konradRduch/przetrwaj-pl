@@ -7,12 +7,12 @@
         name="incidentTitle"
         placeholder="Incident Name" />
     <br>
-    <input type="text" 
+    <input type="text"
         [(ngModel)]="incidentDescription"
         name="incidentDescription"
         placeholder="Incident Description" />
     <br>
-    <br>
+    <span class="br"></span>
     <b>Incident type</b>
     <br>
     <select [(ngModel)]="incidentTypeIndex" name="incidentTypeIndex">
@@ -26,7 +26,7 @@
     <br>
     Long: {{ lngMarker }}
     <br>
-    <br>
+    <span class="br"></span>
     <button type="submit" class="btn btn-secondary btn-sm">Add Incident</button>
     <br>
     <hr>
