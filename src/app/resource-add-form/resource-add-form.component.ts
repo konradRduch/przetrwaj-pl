@@ -5,6 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Resource } from '../models/resource';
 
+export interface ResourceAdd {
+  resourceType: {
+    id: number,
+    unit: string,
+  },
+  quantity: number
+}
+
 @Component({
   selector: 'app-resource-add-form',
   standalone: true,
@@ -13,7 +21,7 @@ import { Resource } from '../models/resource';
   styleUrl: './resource-add-form.component.css'
 })
 export class ResourceAddFormComponent {
-  resources: any[] = [];
+  resources: ResourceAdd[] = [];
   resourcesPointIndex: number = 0;
   resourceTypeId!: number;
   resourceTypeUnit!: string;
@@ -39,7 +47,7 @@ export class ResourceAddFormComponent {
   }
 
   addResourcesToPoint() {
-    //console.log(this.resources, this.resourcesPointIndex)
+    //console.log("DODANE ZASOBY", this.resources,"ID PUNKTU", this.resourcesPointIndex)
     this.resourcesService.addResourcesToPoint(this.resources, this.resourcesPointIndex)
     this.resources = []
     this.addResourceToPoint();

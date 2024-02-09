@@ -6,6 +6,7 @@ import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MapBoundsService } from './map-bounds.service';
 import { ResourceType } from '../models/resourceType';
+import { ResourceAdd } from '../resource-add-form/resource-add-form.component';
 
 @Injectable({
   providedIn: 'root'
@@ -37,29 +38,33 @@ export class ResourcesService {
     });
   }
 
-  addResourceToPoint(resource: any, index: number) {
-    let existingResource = this._resourcesPoints[index - 1].resources.find(r => r.resourceType.id == resource[0]);
-    if (existingResource) {
-      this.http.post<any>('/api/v1/resourcePoint/changeResQuantity', {
-        resourceId: existingResource.resourceId,
-        quantityDelta: resource[1]
-      }).subscribe(resp => {
-        this.fetchResourcePointsByLocation();
-      });
-
-    } else {
-      this.http.post<any>('/api/v1/resourcePoint/addResource', {
-        resourceTypeId: resource[0],
-        pointId: index,
-        quantity: resource[1]
-      }).subscribe(resp => {
-        this.fetchResourcePointsByLocation();
-      });
+  addResourceToPoint(rtId: number, rq: number, index: number) {
+    let rp = this._resourcesPoints.find(rp => rp.pointId == index)
+    if (rp){
+      let existingResource = rp.resources.find(r => r.resourceType.id == rtId);
+      if (existingResource) {
+        this.http.post<any>('/api/v1/resourcePoint/changeResQuantity', {
+          resourceId: existingResource.resourceId,
+          quantityDelta: rq
+        }).subscribe(resp => {
+          this.fetchResourcePointsByLocation();
+        });
+      } else {
+        this.http.post<any>('/api/v1/resourcePoint/addResource', {
+          resourceTypeId: rtId,
+          pointId: index,
+          quantity: rq
+        }).subscribe(resp => {
+          this.fetchResourcePointsByLocation();
+        });
+      }
     }
   }
 
-  addResourcesToPoint(resources: any[], index: number) {
-    const resourcesMap = new Map<string, number>();
+  addResourcesToPoint(resources: ResourceAdd[], index: number) {
+    this.fetchResourcePointsByLocation()
+    //console.log(resources, "zasoby dodawane do", index)
+    const resourcesMap = new Map<number, number>();
     for (let resource of resources) {
       let resourceType = resource.resourceType.id
       let quantity = resource.quantity
@@ -70,7 +75,7 @@ export class ResourcesService {
       }
     }
     for (let resource of resourcesMap) {
-      this.addResourceToPoint(resource, index)
+      this.addResourceToPoint(resource[0], resource[1], index)
     }
   }
 
@@ -95,6 +100,27 @@ export class ResourcesService {
         this.fetchResourcePointsByLocation();
       });
     });
+  }
+
+  removeResource(resource: Resource) {
+    this.http.post<any>('/api/v1/resourcePoint/removeResource', 
+      resource.resourceId
+    ).subscribe(resp => {
+      console.log("deleted resource")
+    });
+  }
+
+  removeResourcePoint(resourcePoint: ResourcePoint) {
+    this.http.post<any>('/api/v1/resourcePoint/removeResourcePoint', 
+      resourcePoint.pointId
+    ).subscribe(resp => {
+      console.log("deleted point")
+    });
+  }
+
+  removeResourcePoint2(resourcePoint: ResourcePoint) {
+    this._resourcesPoints = this._resourcesPoints.filter(i => i !== resourcePoint);
+    this.resources.next(this._resourcesPoints);
   }
 
   removeResourceFromPoint(resource: Resource, index: number) {

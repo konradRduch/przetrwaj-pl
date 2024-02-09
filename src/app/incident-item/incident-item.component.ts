@@ -16,4 +16,9 @@ export class IncidentItemComponent {
   @Input() incident?: Incident;
 
   constructor(public globalVariablesService: GlobalVariablesService) { }
+
+  //TODO in model there is no reportId,in db there is no endpoint
+  removeIncident(incident: Incident) {
+    console.log("brak endpointa do usuwania!")
+  }
 }

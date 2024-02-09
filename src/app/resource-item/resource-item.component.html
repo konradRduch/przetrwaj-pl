@@ -1,17 +1,13 @@
 <div *ngIf="resourcePoint !== undefined && resourcePoint !== null">
     <h6 style="margin-bottom: 3px;"><b>{{resourcePoint.title}}</b></h6>
-    <button class="btn btn-outline-danger btn-sm">Remove resources point</button> <br>
+    <button class="btn btn-outline-danger btn-sm" (click)="removeResourcePoint(resourcePoint)">Remove resources point</button> <br>
     <div
         *ngIf="resourcePoint.resources !== undefined && resourcePoint.resources !== null && resourcePoint.resources.length != 0">
         <b>Resources</b> <br>
         <ul>
             <li *ngFor="let resource of resourcePoint.resources">
-                <button type="button"
-                    class="btn-close btn-close-dark"
-                    data-bs-dismiss="alert"
-                    style="font-size: x-small; margin-right: 5px;"
-                    (click)="removeResource(resource)"
-                    *ngIf="this.globalVariablesService.userIsModerator">
+                <button class="btn btn-outline-danger btn-sm" (click)="removeResource(resource)"
+                        *ngIf="this.globalVariablesService.userIsModerator">X
                 </button>
                 <b>{{resource.resourceType.name}}</b>
                 <br>

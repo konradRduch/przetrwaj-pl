@@ -20,6 +20,13 @@ export class ResourceItemComponent {
   constructor(private resourceService: ResourcesService, public globalVariablesService: GlobalVariablesService) { }
 
   removeResource(resource: Resource) {
+    this.resourceService.removeResource(resource);
+    //no need to fetch again
     this.resourceService.removeResourceFromPoint(resource, this.resourceService.getResourcePointIndex(this.resourcePoint!));
+  }
+
+  removeResourcePoint(resourcePoint: ResourcePoint) {
+    this.resourceService.removeResourcePoint(resourcePoint);
+    this.resourceService.removeResourcePoint2(resourcePoint); //no need to fetch again
   }
 }

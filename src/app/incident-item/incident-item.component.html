@@ -1,6 +1,6 @@
 <div *ngIf="incident !== undefined && incident !== null" class="incidents-div">
     <h6 style="margin-bottom: 3px;"><b>{{incident.title}}</b></h6>
-    <button class="btn btn-outline-danger btn-sm">Remove incident</button> <br>
+    <button class="btn btn-outline-danger btn-sm" (click)="removeIncident(incident)">Remove incident</button> <br>
     <b>Description</b> <br> <span style="overflow-wrap: normal;"> {{incident.description}} </span> <br>
     <b>Incident type</b> <br>
     {{incident.incidentType.name}} <br>
