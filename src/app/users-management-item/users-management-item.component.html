@@ -1,0 +1,9 @@
+<div class="border border-black rounded-1 border-3 p-1"
+    *ngIf="user !== undefined && user !== null">
+    <h6>{{user.firstName}} {{user.lastName}}</h6>
+    {{user.email}}
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-danger btn-sm">Delete user</button>
+    </div>
+</div>

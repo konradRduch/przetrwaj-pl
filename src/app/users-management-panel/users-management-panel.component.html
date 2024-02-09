@@ -1,2 +1,15 @@
-PLACEHOLDER FOR USERS MANAGEMENT PANEL
-this functionality is not implemented
+<div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-6">
+                <h5>Users management panel</h5>
+                <span class="br"></span>
+                <div *ngFor="let user of users">
+                    <app-users-management-item
+                        [user]="user"></app-users-management-item>
+                    <span class="br"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

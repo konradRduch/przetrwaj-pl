@@ -21,6 +21,8 @@ import { MapBoundsService } from './services/map-bounds.service';
 import { MapMarkersService } from './services/map-markers.service';
 import { ResourcePointAddFormComponent } from './resource-point-add-form/resource-point-add-form.component';
 import { GlobalVariablesService } from './services/global-variables.service';
+import { UsersManagementItemComponent } from './users-management-item/users-management-item.component';
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { GlobalVariablesService } from './services/global-variables.service';
     MapComponent,
     IncidentAddFormComponent,
     ResourceAddFormComponent,
-    ResourcePointAddFormComponent
+    ResourcePointAddFormComponent,
+    UsersManagementItemComponent
   ],
   providers: [
     IncidentsService,
@@ -49,7 +52,8 @@ import { GlobalVariablesService } from './services/global-variables.service';
     LocationService,
     MapBoundsService,
     MapMarkersService,
-    GlobalVariablesService
+    GlobalVariablesService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })
