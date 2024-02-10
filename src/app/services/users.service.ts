@@ -15,14 +15,10 @@ export class UsersService {
   }
 
   fetchUsers() {
-    // fetch users from the db
-
-    // test data
-    this._users = [
-      { id: 1, firstName: 'John', lastName: 'Doe', email: 'u1@e.com' },
-      { id: 2, firstName: 'Jane', lastName: 'Doe', email: 'u2@e.com' }
-    ];
-    this.users.next(this._users);
+    this.http.get<User[]>('/api/v1/user').subscribe(users => {
+      this._users = users;
+      this.users.next(this._users);
+    });
   }
 
   getUsers() {

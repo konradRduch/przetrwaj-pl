@@ -18,8 +18,9 @@ export class UsersManagementPanelComponent {
   users: User[] = [];
 
   constructor(private usersService: UsersService) {
+    this.usersService.fetchUsers();
     this.usersService.getUsers().subscribe(users => {
-      this.users = users;
+      this.users = users.filter(user => user.role !== 'ADMIN');
     });
   }
 }
