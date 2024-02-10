@@ -18,16 +18,21 @@
             <ul
                 class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end">
                 <!-- there should be ifs to show items only wheen user is in other view -->
-                <li><a class="dropdown-item" href="main-view">MainView
-                        (map)</a></li>
-                <li *ngIf="this.globalVariablesService.userIsModerator"><a
-                        class="dropdown-item"
-                        href="users-management-panel">Users
-                        management
-                        panel</a></li>
-                <li><a class="dropdown-item" href="account-settings">Change
-                        account
-                        data</a></li>
+                <li>
+                    <a class="dropdown-item" routerLink="main-view">
+                        MainView (map)
+                    </a>
+                </li>
+                <li *ngIf="this.globalVariablesService.userIsModerator">
+                    <a class="dropdown-item" routerLink="users-management-panel">
+                        Users management panel
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" routerLink="account-settings">
+                        Change account data
+                    </a>
+                </li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Logout</a></li>
             </ul>
