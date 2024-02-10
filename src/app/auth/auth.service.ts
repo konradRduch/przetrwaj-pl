@@ -5,12 +5,8 @@ import { User } from "./user.model";
 import { GlobalVariablesService } from "../services/global-variables.service";
 
 export interface AuthResponseData {
-    idToken: string
-    email: string
-    refreshToken: string
-    expiresln: string
-    localId: string
-    registered?: boolean
+    role: string;
+    token: string;
 }
 
 
@@ -36,13 +32,13 @@ export class AuthService {
             }
         ).pipe(catchError(this.handleError),
             tap(resData => {
-                this.setUserRole(email);
-                this.handleAuthentication(
-                    resData.email,
-                    resData.localId,
-                    resData.idToken,
-                    +resData.expiresln
-                );
+                this.setUserRole(resData.role);
+                // this.handleAuthentication(
+                //     resData.email,
+                //     resData.localId,
+                //     resData.idToken,
+                //     +resData.expiresln
+                // );
             })
         );
     }
@@ -56,30 +52,30 @@ export class AuthService {
                 returnSecureToken: true
             }
         ).pipe(catchError(this.handleError), tap(resData => {
-            this.setUserRole(email);
-            this.handleAuthentication(
-                resData.email,
-                resData.localId,
-                resData.idToken,
-                +resData.expiresln
-            );
+            this.setUserRole(resData.role);
+            // this.handleAuthentication(
+            //     resData.email,
+            //     resData.localId,
+            //     resData.idToken,
+            //     +resData.expiresln
+            // );
         }));
     }
 
 
-    private handleAuthentication(email: string, userId: string, token: string, expiresln: number) {
-        const expirationDate = new Date(
-            new Date().getTime() + expiresln * 1000
-        );
+    // private handleAuthentication(email: string, userId: string, token: string, expiresln: number) {
+    //     const expirationDate = new Date(
+    //         new Date().getTime() + expiresln * 1000
+    //     );
 
-        const user = new User(
-            email,
-            userId,
-            token,
-            expirationDate
-        );
-        this.user.next(user);
-    }
+    //     const user = new User(
+    //         email,
+    //         userId,
+    //         token,
+    //         expirationDate
+    //     );
+    //     this.user.next(user);
+    // }
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMassage = 'An unknown error occurred!';
@@ -103,16 +99,12 @@ export class AuthService {
         return throwError(errorMassage);
     }
 
-    setUserRole(email: string) {
-        this.http.get('/api/v1/auth/userRole?email=' + email, { responseType: 'text' }).subscribe(
-            (role: string) => {
-                if (role === 'MODERATOR') {
-                    this.globalVariablesService.userIsModerator = true;
-                }
-                else {
-                    this.globalVariablesService.userIsModerator = false;
-                }
-            }
-        );
+    setUserRole(role: string) {
+        if (role === 'MODERATOR') {
+            this.globalVariablesService.userIsModerator = true;
+        }
+        else {
+            this.globalVariablesService.userIsModerator = false;
+        }
     }
 }
