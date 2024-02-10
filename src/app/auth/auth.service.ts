@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject, catchError, tap, throwError } from "rxjs";
 import { User } from "./user.model";
+import { GlobalVariablesService } from "../services/global-variables.service";
 
 export interface AuthResponseData {
     idToken: string
@@ -21,7 +22,7 @@ export class AuthService {
 
     user = new Subject<User>();
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private globalVariablesService: GlobalVariablesService) { }
 
 
     signup(firstName: string, lastName: string, email: string, password: string) {
@@ -35,6 +36,7 @@ export class AuthService {
             }
         ).pipe(catchError(this.handleError),
             tap(resData => {
+                this.setUserRole(email);
                 this.handleAuthentication(
                     resData.email,
                     resData.localId,
@@ -54,6 +56,7 @@ export class AuthService {
                 returnSecureToken: true
             }
         ).pipe(catchError(this.handleError), tap(resData => {
+            this.setUserRole(email);
             this.handleAuthentication(
                 resData.email,
                 resData.localId,
@@ -66,7 +69,7 @@ export class AuthService {
 
     private handleAuthentication(email: string, userId: string, token: string, expiresln: number) {
         const expirationDate = new Date(
-            new Date().getTime() + +expiresln * 1000
+            new Date().getTime() + expiresln * 1000
         );
 
         const user = new User(
@@ -98,5 +101,18 @@ export class AuthService {
 
         }
         return throwError(errorMassage);
+    }
+
+    setUserRole(email: string) {
+        this.http.get('/api/v1/auth/userRole?email=' + email, { responseType: 'text' }).subscribe(
+            (role: string) => {
+                if (role === 'MODERATOR') {
+                    this.globalVariablesService.userIsModerator = true;
+                }
+                else {
+                    this.globalVariablesService.userIsModerator = false;
+                }
+            }
+        );
     }
 }
