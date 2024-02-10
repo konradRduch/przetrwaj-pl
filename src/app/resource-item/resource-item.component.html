@@ -1,8 +1,11 @@
 <div *ngIf="resourcePoint !== undefined && resourcePoint !== null">
     <h6 style="margin-bottom: 3px;"><b>{{resourcePoint.title}}</b></h6>
-    <button class="btn btn-outline-danger btn-sm"
-        (click)="removeResourcePoint(resourcePoint)">Remove resources
-        point</button> <br>
+    <div *ngIf="this.globalVariablesService.userIsModerator">
+        <button class="btn btn-outline-danger btn-sm"
+            (click)="removeResourcePoint(resourcePoint)">
+            Remove resources point
+        </button> <br>
+    </div>
     <div
         *ngIf="resourcePoint.resources !== undefined && resourcePoint.resources !== null && resourcePoint.resources.length != 0">
         <b>Resources</b> <br>
