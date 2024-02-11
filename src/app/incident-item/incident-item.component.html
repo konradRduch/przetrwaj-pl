@@ -49,8 +49,14 @@
         <p>no recommended resources</p>
     </div>
     <button class="btn btn-success btn-sm"
-        (click)="confirmIncident(incident)">Confirm</button>
+        (click)="confirmIncident(incident)"
+        [disabled]="">
+        Confirm
+    </button>
     <button class="btn btn-danger btn-sm"
         style="margin-left: 1em"
-        (click)="rejectIncident(incident)">Reject</button>
+        (click)="rejectIncident(incident)"
+        [disabled]=""> <!-- <- put true in "" if button should be disabled, else false -->
+        Reject
+    </button>
 </div>

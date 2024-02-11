@@ -21,8 +21,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
             }
         );
     }
-    
+
     ngOnDestroy() {
         this.userSub.unsubscribe();
+    }
+
+    clearLocalStorage() {
+        this.globalVariablesService.clearLocalStorage();
+    }
+
+    logout() {
+        window.location.href = '#';
     }
 }

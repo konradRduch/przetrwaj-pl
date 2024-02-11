@@ -19,8 +19,8 @@ export class IncidentItemComponent {
   constructor(public globalVariablesService: GlobalVariablesService, private indidentsService: IncidentsService) { }
 
   removeIncident(incident: Incident) {
-      this.indidentsService.removeIncident(incident);
-      this.indidentsService.removeIncidentLocally(incident); //no need to fetch again
+    this.indidentsService.removeIncident(incident);
+    this.indidentsService.removeIncidentLocally(incident);
   }
 
   confirmIncident(incident: Incident) {
