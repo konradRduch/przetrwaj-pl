@@ -31,6 +31,7 @@ export class AuthComponent {
 
         let authObs: Observable<AuthResponseData>;
 
+
         this.isLoading = true;
         if (this.isLoginMode) {
             authObs = this.authService.login(email, password);

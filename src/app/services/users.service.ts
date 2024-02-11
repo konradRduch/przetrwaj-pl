@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
+import { GlobalVariablesService } from './global-variables.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,12 @@ import { HttpClient } from '@angular/common/http';
 export class UsersService {
   private _users: User[] = [];
   users = new BehaviorSubject<User[]>(this._users);
-
-  constructor(private http: HttpClient) {
+  
+  private currentUser: User | undefined ;
+  private newUser: User | undefined ;
+  constructor(private http: HttpClient, private global: GlobalVariablesService) {
+    this.currentUser = global.getUser();
+    console.log(this.currentUser);
     this.fetchUsers();
   }
 
@@ -24,4 +29,16 @@ export class UsersService {
   getUsers() {
     return this.users.asObservable();
   }
+
+  updateUser(){
+     this.newUser = this.global.getUser();
+     const url = `/api/v1/user/byId?id=${this.newUser?.id}`;
+     
+     this.http.patch<User>(url, this.newUser);
+  
+  }
+
+
+
+
 }
