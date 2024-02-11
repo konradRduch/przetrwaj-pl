@@ -48,7 +48,9 @@
     <div *ngElse>
         <p>no recommended resources</p>
     </div>
-    <button class="btn btn-success btn-sm">Confirm</button>
+    <button class="btn btn-success btn-sm"
+        (click)="confirmIncident(incident)">Confirm</button>
     <button class="btn btn-danger btn-sm"
-        style="margin-left: 1em">Reject</button>
+        style="margin-left: 1em"
+        (click)="rejectIncident(incident)">Reject</button>
 </div>

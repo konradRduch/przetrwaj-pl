@@ -22,4 +22,12 @@ export class IncidentItemComponent {
       this.indidentsService.removeIncident(incident);
       this.indidentsService.removeIncidentLocally(incident); //no need to fetch again
   }
+
+  confirmIncident(incident: Incident) {
+    this.indidentsService.confirmIncident(incident);
+  }
+
+  rejectIncident(incident: Incident) {
+    this.indidentsService.rejectIncident(incident);
+  }
 }

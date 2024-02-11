@@ -53,6 +53,22 @@ export class IncidentsService {
     });
   }
 
+  rejectIncident(incident: Incident) {
+    this.http.post<any>('/api/v1/report/rejectReport', 
+      incident.incidentId
+    ).subscribe(resp => {
+      console.log("rejected incident")
+    });
+  }
+
+  confirmIncident(incident: Incident) {
+    this.http.post<any>('/api/v1/report/confirmReport', 
+      incident.incidentId
+    ).subscribe(resp => {
+      console.log("confirmed incident")
+    });
+  }
+
   removeIncidentLocally(incident: Incident) {
     this._incidents = this._incidents.filter(i => i !== incident);
     this.incidents.next(this._incidents);
