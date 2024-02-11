@@ -12,7 +12,8 @@
             <a class="nav-link dropdown-toggle" style="color: white;"
                 href="#"
                 role="button"
-                data-bs-toggle="dropdown">
+                data-bs-toggle="dropdown"
+                *ngIf="this.globalVariablesService.currentUser">
                 MENU
             </a>
             <ul
