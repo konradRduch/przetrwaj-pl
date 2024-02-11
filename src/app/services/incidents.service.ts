@@ -32,7 +32,7 @@ export class IncidentsService {
         latitude: resp.latitude,
         longitude: resp.longitude
       };
-      this.http.post<any>('/api/v1/report', {
+      this.http.post<any>('/api/v1/report/addReport', {
         locationId: locationToAdd.id,
         reportTypeID: incidentTypeIndex,
         threatDegree: "999",
@@ -64,7 +64,7 @@ export class IncidentsService {
   }
 
   getIncidentsTypes() {
-    this.http.get<any[]>('/api/v1/reportType', {}).subscribe(data => {
+    this.http.get<any[]>('/api/v1/reportType/getAllReportTypes', {}).subscribe(data => {
       const types: any[] = [];
       for (let report in data) {
         types.push({
