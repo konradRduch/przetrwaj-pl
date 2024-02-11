@@ -24,10 +24,14 @@ export class IncidentItemComponent {
   }
 
   confirmIncident(incident: Incident) {
+    this.globalVariablesService.addConfirmation(incident.incidentId, true)
     this.indidentsService.confirmIncident(incident);
+    //console.log(this.globalVariablesService.incidentConfirmationMap)
   }
 
   rejectIncident(incident: Incident) {
+    this.globalVariablesService.addConfirmation(incident.incidentId, true)
     this.indidentsService.rejectIncident(incident);
+    //console.log(this.globalVariablesService.incidentConfirmationMap)
   }
 }
