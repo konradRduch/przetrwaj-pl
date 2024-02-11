@@ -40,7 +40,7 @@ export class ResourcesService {
 
   addResourceToPoint(rtId: number, rq: number, index: number) {
     let rp = this._resourcesPoints.find(rp => rp.pointId == index)
-    if (rp){
+    if (rp) {
       let existingResource = rp.resources.find(r => r.resourceType.id == rtId);
       if (existingResource) {
         this.http.post<any>('/api/v1/resourcePoint/changeResQuantity', {
@@ -103,7 +103,7 @@ export class ResourcesService {
   }
 
   removeResource(resource: Resource) {
-    this.http.post<any>('/api/v1/resourcePoint/removeResource', 
+    this.http.post<any>('/api/v1/resourcePoint/removeResource',
       resource.resourceId
     ).subscribe(resp => {
       console.log("deleted resource")
@@ -111,14 +111,11 @@ export class ResourcesService {
   }
 
   removeResourcePoint(resourcePoint: ResourcePoint) {
-    this.http.post<any>('/api/v1/resourcePoint/removeResourcePoint', 
+    this.http.post<any>('/api/v1/resourcePoint/removeResourcePoint',
       resourcePoint.pointId
     ).subscribe(resp => {
       console.log("deleted point")
     });
-  }
-
-  removeResourcePoint2(resourcePoint: ResourcePoint) {
     this._resourcesPoints = this._resourcesPoints.filter(i => i !== resourcePoint);
     this.resources.next(this._resourcesPoints);
   }

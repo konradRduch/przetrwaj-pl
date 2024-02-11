@@ -24,4 +24,10 @@ export class UsersService {
   getUsers() {
     return this.users.asObservable();
   }
+
+  deleteUser(user: User) {
+    this.http.delete('/api/v1/user/byId?id=' + user.id, { responseType: 'text' }).subscribe(resp => {
+      this.fetchUsers();
+    });
+  }
 }
