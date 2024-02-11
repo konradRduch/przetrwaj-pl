@@ -2,6 +2,7 @@ import { IncidentType } from "./incidentType";
 import { Location } from "./location";
 
 export interface Incident {
+    incidentId: number
     title: string
     description: string
     incidentType: IncidentType

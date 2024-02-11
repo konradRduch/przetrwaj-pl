@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Incident } from '../models/incident';
 import { CommonModule } from '@angular/common';
 import { GlobalVariablesService } from '../services/global-variables.service';
+import { IncidentsService } from '../services/incidents.service';
 
 @Component({
   selector: 'app-incident-item',
@@ -15,10 +16,10 @@ import { GlobalVariablesService } from '../services/global-variables.service';
 export class IncidentItemComponent {
   @Input() incident?: Incident;
 
-  constructor(public globalVariablesService: GlobalVariablesService) { }
+  constructor(public globalVariablesService: GlobalVariablesService, private indidentsService: IncidentsService) { }
 
-  //TODO in model there is no reportId,in db there is no endpoint
   removeIncident(incident: Incident) {
-    console.log("brak endpointa do usuwania!")
+      this.indidentsService.removeIncident(incident);
+      this.indidentsService.removeIncidentLocally(incident); //no need to fetch again
   }
 }

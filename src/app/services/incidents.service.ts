@@ -46,6 +46,14 @@ export class IncidentsService {
   }
 
   removeIncident(incident: Incident) {
+    this.http.post<any>('/api/v1/report/removeReport', 
+      incident.incidentId
+    ).subscribe(resp => {
+      console.log("deleted incident")
+    });
+  }
+
+  removeIncidentLocally(incident: Incident) {
     this._incidents = this._incidents.filter(i => i !== incident);
     this.incidents.next(this._incidents);
   }
@@ -110,6 +118,7 @@ export class IncidentsService {
         this._incidents = data.map(report => {
           // console.log(report);
           return {
+            incidentId: report.id,
             title: report.name,
             description: report.description,
             incidentType: {
