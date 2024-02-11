@@ -8,6 +8,6 @@
     {{user.email}}
 
     <div class="d-flex justify-content-end" *ngIf="user.role=='USER'">
-        <button class="btn btn-danger btn-sm">Delete user</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteUser()">Delete user</button>
     </div>
 </div>

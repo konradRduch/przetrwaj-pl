@@ -50,6 +50,6 @@ export class IncidentAddFormComponent {
 
   addIncident() {
     this.mapMarkerService.clearMarker()
-    this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription, Number(this.incidentTypeIndex) + 1)
+    this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription, Number(this.incidentTypeIndex) + 1, this.incidentTitle)
   }
 }

@@ -30,6 +30,19 @@ export class UsersService {
     return this.users.asObservable();
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
   updateUser(){
      this.newUser = this.global.getUser();
      const url = `/api/v1/user/byId?id=${this.newUser?.id}`;

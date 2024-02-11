@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../models/user';
 import { CommonModule } from '@angular/common';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-users-management-item',
@@ -14,4 +15,9 @@ import { CommonModule } from '@angular/common';
 export class UsersManagementItemComponent {
   @Input() user?: User;
 
+  constructor(private usersService: UsersService) { }
+
+  deleteUser() {
+    this.usersService.deleteUser(this.user!);
+  }
 }

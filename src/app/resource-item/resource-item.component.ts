@@ -27,6 +27,5 @@ export class ResourceItemComponent {
 
   removeResourcePoint(resourcePoint: ResourcePoint) {
     this.resourceService.removeResourcePoint(resourcePoint);
-    this.resourceService.removeResourcePoint2(resourcePoint); //no need to fetch again
   }
 }

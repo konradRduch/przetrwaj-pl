@@ -20,9 +20,9 @@ export class IncidentsService {
     this.getIncidentsTypes()
   }
 
-  addIncident(lat: number, lng: number, locationToAdd: any, incidentDescription: any, incidentTypeIndex: number) {
+  addIncident(lat: number, lng: number, locationToAdd: any, incidentDescription: any, incidentTypeIndex: number, incidentTitle: string) {
     this.http.post<any>('/api/v1/location', {
-      address: "sinadal",
+      address: "address",
       longitude: lng,
       latitude: lat
     }).subscribe(resp => {
@@ -33,6 +33,7 @@ export class IncidentsService {
         longitude: resp.longitude
       };
       this.http.post<any>('/api/v1/report/addReport', {
+        name: incidentTitle,
         locationId: locationToAdd.id,
         reportTypeID: incidentTypeIndex,
         threatDegree: "999",
@@ -45,6 +46,30 @@ export class IncidentsService {
   }
 
   removeIncident(incident: Incident) {
+    this.http.post<any>('/api/v1/report/removeReport', 
+      incident.incidentId
+    ).subscribe(resp => {
+      console.log("deleted incident")
+    });
+  }
+
+  rejectIncident(incident: Incident) {
+    this.http.post<any>('/api/v1/report/rejectReport', 
+      incident.incidentId
+    ).subscribe(resp => {
+      console.log("rejected incident")
+    });
+  }
+
+  confirmIncident(incident: Incident) {
+    this.http.post<any>('/api/v1/report/confirmReport', 
+      incident.incidentId
+    ).subscribe(resp => {
+      console.log("confirmed incident")
+    });
+  }
+
+  removeIncidentLocally(incident: Incident) {
     this._incidents = this._incidents.filter(i => i !== incident);
     this.incidents.next(this._incidents);
   }
@@ -109,7 +134,8 @@ export class IncidentsService {
         this._incidents = data.map(report => {
           // console.log(report);
           return {
-            title: "title",
+            incidentId: report.id,
+            title: report.name,
             description: report.description,
             incidentType: {
               name: report.reportType.typeName,
@@ -120,8 +146,8 @@ export class IncidentsService {
               latitude: report.location.latitude,
               longitude: report.location.longitude
             },
-            creationDate: report.date,
-            expirationDate: new Date(Date.parse(report.date) + 1000 * 60 * 60 * 24 * 7),
+            creationDate: report.dateCreation,
+            expirationDate: report.dateExpiration,
             dangerLevel: report.threatDegree,
             confirmations: report.confirmations,
             rejections: report.rejections,
