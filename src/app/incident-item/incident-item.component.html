@@ -1,6 +1,6 @@
 <div *ngIf="incident !== undefined && incident !== null" class="incidents-div">
     <h6 style="margin-bottom: 3px;"><b>{{incident.title}}</b></h6>
-    <div *ngIf="this.globalVariablesService.userIsModerator">
+    <div *ngIf="this.globalVariablesService.getUserIsModerator()">
         <button class="btn btn-outline-danger btn-sm"
             (click)="removeIncident(incident)">
             Remove incident
@@ -14,15 +14,15 @@
     <b>Address</b> <br>
     <div
         style="background-color: red; opacity: 80%; color: white; padding: 1px; border-radius: 3px;"
-        *ngIf="this.globalVariablesService.showAddress">
+        *ngIf="this.globalVariablesService.getShowAddress()">
         <!-- {{incident.location.address}}  -->
         ACTIVATE PREMIUM SUBSCRIPTION TO SEE ADDRESSES <br>
         it is only 9.99$ per month!
     </div>
-    <div *ngIf="!this.globalVariablesService.showAddress">
+    <div *ngIf="!this.globalVariablesService.getShowAddress()">
         <button class="btn btn-outline-secondary btn-sm"
-            *ngIf="!this.globalVariablesService.showAddress"
-            (click)="this.globalVariablesService.showAddress=true">Show
+            *ngIf="!this.globalVariablesService.getShowAddress()"
+            (click)="this.globalVariablesService.setShowAddress(true)">Show
             address</button>
     </div>
     <b>Location</b> <br>

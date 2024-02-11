@@ -36,10 +36,10 @@ export class AuthService {
             tap(resData => {
                 this.setUserRole(resData.role);
                 this.setCurrentUser(resData.id, resData.firstName, resData.lastName, resData.email, resData.role);
+                this.globalVariablesService.setUserIsLogged(true);
             })
         );
     }
-
 
     login(email: string, password: string) {
         return this.http.post<AuthResponseData>('/api/v1/auth',
@@ -51,10 +51,9 @@ export class AuthService {
         ).pipe(catchError(this.handleError), tap(resData => {
             this.setUserRole(resData.role);
             this.setCurrentUser(resData.id, resData.firstName, resData.lastName, resData.email, resData.role);
+            this.globalVariablesService.setUserIsLogged(true);
         }));
     }
-
-
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMassage = 'An unknown error occurred!';
@@ -80,15 +79,15 @@ export class AuthService {
 
     setUserRole(role: string) {
         if (role === 'MODERATOR') {
-            this.globalVariablesService.userIsModerator = true;
+            this.globalVariablesService.setUserIsModerator(true);
         }
         else {
-            this.globalVariablesService.userIsModerator = false;
+            this.globalVariablesService.setUserIsModerator(false);
         }
     }
 
     setCurrentUser(id: number, firstName: string, lastName: string, email: string, role: string) {
         let user = { id: id, firstName: firstName, lastName: lastName, email: email, role: role };
-        this.globalVariablesService.currentUser = user;
+        this.globalVariablesService.setCurrentUser(user);
     }
 }

@@ -17,10 +17,10 @@
             style="overflow: auto;">
             <!-- there should be ngIf and show component only when needed and only for moderator -->
             <app-resource-point-add-form
-                *ngIf="(this.mapMarkerService.addedMarker.length!=0) && (this.globalVariablesService.userIsModerator)">
+                *ngIf="(this.mapMarkerService.addedMarker.length!=0) && (this.globalVariablesService.getUserIsModerator())">
             </app-resource-point-add-form>
             <app-resource-add-form
-                *ngIf="this.globalVariablesService.userIsModerator"></app-resource-add-form>
+                *ngIf="this.globalVariablesService.getUserIsModerator()"></app-resource-add-form>
             <app-resources-list></app-resources-list>
         </div>
     </div>

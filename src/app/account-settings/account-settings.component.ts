@@ -19,7 +19,7 @@ export class AccountSettingsComponent {
   tempLastName: string = "";
 
   constructor(private globalVariablesService: GlobalVariablesService, private userservice: UsersService, private http: HttpClient) {
-    this.user = this.globalVariablesService.currentUser;
+    this.user = this.globalVariablesService.getCurrentUser();
   }
 
   submitForm() {
@@ -34,7 +34,7 @@ export class AccountSettingsComponent {
       lastName: newLastName
     }).subscribe(resp => {
       this.user = resp;
-      this.globalVariablesService.currentUser = resp;
+      this.globalVariablesService.setCurrentUser(resp);
     });
   }
 

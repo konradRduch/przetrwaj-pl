@@ -3,7 +3,7 @@
         <div class="navbar-brand h2 justify-content-left">Przetrwaj.pl</div>
         <!-- add username and if to show this only after succesfully login -->
         <div
-            *ngIf="this.globalVariablesService.userIsModerator"
+            *ngIf="this.globalVariablesService.getUserIsModerator()"
             class="navbar-collapse collapse flex-grow-0 justify-content-center headerTextBox"
             style="color: black; margin-left: 10px;"><b>MODERATOR</b>
         </div>
@@ -13,7 +13,7 @@
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
-                *ngIf="this.globalVariablesService.currentUser">
+                *ngIf="this.globalVariablesService.getUserIsLogged()">
                 MENU
             </a>
             <ul
@@ -24,7 +24,7 @@
                         MainView (map)
                     </a>
                 </li>
-                <li *ngIf="this.globalVariablesService.userIsModerator">
+                <li *ngIf="this.globalVariablesService.getUserIsModerator()">
                     <a class="dropdown-item" routerLink="users-management-panel">
                         Users management panel
                     </a>
