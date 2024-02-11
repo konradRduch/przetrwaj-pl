@@ -11,11 +11,7 @@ export class UsersService {
   private _users: User[] = [];
   users = new BehaviorSubject<User[]>(this._users);
 
-  private currentUser: User | undefined;
-  private newUser: User | undefined;
   constructor(private http: HttpClient, private global: GlobalVariablesService) {
-    this.currentUser = global.getUser();
-    console.log(this.currentUser);
     this.fetchUsers();
   }
 
@@ -35,13 +31,4 @@ export class UsersService {
       this.fetchUsers();
     });
   }
-
-  updateUser() {
-    this.newUser = this.global.getUser();
-    const url = `/api/v1/user/byId?id=${this.newUser?.id}`;
-
-    this.http.patch<User>(url, this.newUser);
-
-  }
-
 }

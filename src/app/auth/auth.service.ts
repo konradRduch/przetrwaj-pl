@@ -35,7 +35,7 @@ export class AuthService {
         ).pipe(catchError(this.handleError),
             tap(resData => {
                 this.setUserRole(resData.role);
-                this.setCurrentUser(resData.id,resData.firstName,resData.lastName,resData.email,resData.role);
+                this.setCurrentUser(resData.id, resData.firstName, resData.lastName, resData.email, resData.role);
             })
         );
     }
@@ -50,7 +50,7 @@ export class AuthService {
             }
         ).pipe(catchError(this.handleError), tap(resData => {
             this.setUserRole(resData.role);
-            this.setCurrentUser(resData.id,resData.firstName,resData.lastName,resData.email,resData.role);
+            this.setCurrentUser(resData.id, resData.firstName, resData.lastName, resData.email, resData.role);
         }));
     }
 
@@ -87,12 +87,8 @@ export class AuthService {
         }
     }
 
-    setCurrentUser(id: number, firstName: string, lastName: string,email: string, role: string){
-        this.globalVariablesService.id = id;
-        this.globalVariablesService.firstName=firstName;
-        this.globalVariablesService.lastName =lastName;
-        this.globalVariablesService.email =email;
-        this.globalVariablesService.role = role;
+    setCurrentUser(id: number, firstName: string, lastName: string, email: string, role: string) {
+        let user = { id: id, firstName: firstName, lastName: lastName, email: email, role: role };
+        this.globalVariablesService.currentUser = user;
     }
-
 }
