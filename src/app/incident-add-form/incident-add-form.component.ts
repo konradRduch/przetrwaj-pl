@@ -3,7 +3,6 @@ import { LocationService } from '../services/location.service';
 import { IncidentsService } from '../services/incidents.service';
 import { FormsModule } from '@angular/forms';
 import { MapMarkersService } from '../services/map-markers.service';
-import { MapBoundsService } from '../services/map-bounds.service';
 import { CommonModule } from '@angular/common';
 
 export interface LocationDB {
@@ -51,5 +50,9 @@ export class IncidentAddFormComponent {
   addIncident() {
     this.mapMarkerService.clearMarker()
     this.incidentService.addIncident(this.latMarker, this.lngMarker, this.locationToAdd, this.incidentDescription, Number(this.incidentTypeIndex) + 1, this.incidentTitle)
+  }
+
+  cancelAddingNewLocation() {
+    this.mapMarkerService.clearMarker()
   }
 }

@@ -12,8 +12,8 @@ export class GlobalVariablesService {
   private userIsLogged: boolean = false;
 
   constructor() {
-    localStorage.getItem('incidentConfirmationMap') ? this.incidentConfirmationMap = new Map(JSON.parse(localStorage.getItem('incidentConfirmationMap')!)) : 
-                                                      this.incidentConfirmationMap = new Map<number, Boolean>;
+    localStorage.getItem('incidentConfirmationMap') ? this.incidentConfirmationMap = new Map(JSON.parse(localStorage.getItem('incidentConfirmationMap')!)) :
+      this.incidentConfirmationMap = new Map<number, Boolean>;
     localStorage.getItem('currentUser') ? this.currentUser = JSON.parse(localStorage.getItem('currentUser')!) : this.currentUser = undefined;
     localStorage.getItem('userIsModerator') ? this.userIsModerator = JSON.parse(localStorage.getItem('userIsModerator')!) : this.userIsModerator = false;
     localStorage.getItem('userIsLogged') ? this.userIsLogged = JSON.parse(localStorage.getItem('userIsLogged')!) : this.userIsLogged = false;
@@ -43,9 +43,9 @@ export class GlobalVariablesService {
     localStorage.setItem('incidentConfirmationMap', JSON.stringify(Array.from(this.incidentConfirmationMap.entries())));
   }
 
-  getIncidentConfirmationStatus(incidentId: number): Boolean { 
-    return this.incidentConfirmationMap.has(incidentId) ? this.incidentConfirmationMap.get(incidentId) as Boolean : false; 
-  } 
+  getIncidentConfirmationStatus(incidentId: number): Boolean {
+    return this.incidentConfirmationMap.has(incidentId) ? this.incidentConfirmationMap.get(incidentId) as Boolean : false;
+  }
 
   getCurrentUser(): User | undefined {
     return this.currentUser;

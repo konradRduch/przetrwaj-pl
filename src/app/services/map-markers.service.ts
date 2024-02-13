@@ -91,6 +91,7 @@ export class MapMarkersService {
 
   clearMarker() {
     this.addedMarker = []
+    this.incidentsService.fetchIncidentsByLocation()
   }
 
   getMarkerUrl(color: string): string {
