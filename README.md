@@ -1,6 +1,6 @@
 # PrzetrwajPl
 
-Frontend for https://github.com/dkacza/przetrwaj-api. Made with Angular.
+Frontend for https://github.com/dkacza/przetrwaj-api. Made with Angular. Before use it is needed to put google maps api key in index.hmtl file.
 
 ## Screenshots
 ![Zrzut ekranu 2024-02-22 205949](https://github.com/konradRduch/przetrwaj-pl/assets/91876652/cef228f4-4845-4108-a9af-c97d84fb9b26)
